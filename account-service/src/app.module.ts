@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserSchema } from './@core/infra/db/typeorm/user-schema';
 
 @Module({
   imports: [
@@ -14,8 +15,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'user_teste',
       password: 'senha_teste',
       database: 'wallet',
-      entities: ['dist/**/*.entity{.ts,.js}'],
-      migrations: ['migrations/*.{ts,.js}'],
+      entities: [UserSchema],
     }),
     AuthModule,
     UsersModule,
