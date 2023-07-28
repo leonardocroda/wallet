@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, getDataSourceToken } from '@nestjs/typeorm';
-import { UserTypeOrmRepository } from 'src/@core/infra/db/typeorm/user-typeorm-repository';
+import { UserSchema } from './infra/db/typeorm/user-schema';
+import { User } from './entity/user.entity';
+import { UserTypeOrmRepository } from './infra/db/typeorm/user-typeorm-repository';
 import { DataSource } from 'typeorm';
-import { UserSchema } from '../@core/infra/db/typeorm/user-schema';
-import { User } from '../@core/domain/user/entity/users.entity';
-import { GetUserByEmailUsecase } from '../@core/domain/user/usecase/get-user-by-email-usecase';
-import { GetUserByEmailRepository } from '../@core/domain/user/gateways/get-user-by-email-repository';
+import { GetUserByEmailUsecase } from './usecase/get-user-by-email-usecase';
+import { GetUserByEmailRepository } from './gateways/get-user-by-email-repository';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserSchema])],
@@ -28,4 +28,4 @@ import { GetUserByEmailRepository } from '../@core/domain/user/gateways/get-user
   ],
   exports: [GetUserByEmailUsecase],
 })
-export class UsersModule {}
+export class UserModule {}

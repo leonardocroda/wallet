@@ -1,5 +1,5 @@
-import { User } from '../../../domain/user/entity/users.entity';
-import { GetUserByEmailRepository } from '../../../domain/user/gateways/get-user-by-email-repository';
+import { User } from '../../../entity/user.entity';
+import { GetUserByEmailRepository } from '../../../gateways/get-user-by-email-repository';
 import { Repository } from 'typeorm';
 
 export class UserTypeOrmRepository implements GetUserByEmailRepository {

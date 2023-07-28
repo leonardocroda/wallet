@@ -1,4 +1,4 @@
-import { User } from '../entity/users.entity';
+import { User } from '../entity/user.entity';
 import { GetUserByEmailRepository } from '../gateways/get-user-by-email-repository';
 
 export class GetUserByEmailUsecase {

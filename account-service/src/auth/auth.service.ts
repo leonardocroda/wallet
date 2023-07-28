@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { GetUserByEmailUsecase } from '../@core/domain/user/usecase/get-user-by-email-usecase';
+import { GetUserByEmailUsecase } from '../user/usecase/get-user-by-email-usecase';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: GetUserByEmailUsecase,
+    private getUserByEmailUseCase: GetUserByEmailUsecase,
     private jwtService: JwtService,
   ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.usersService.getByEmail(email);
+    const user = await this.getUserByEmailUseCase.getByEmail(email);
 
     if (user && user.password === pass) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
