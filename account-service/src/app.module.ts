@@ -15,7 +15,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       password: 'senha_teste',
       database: 'wallet',
       entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: false,
+      migrations: ['migrations/*.{ts,.js}'],
     }),
     AuthModule,
     UsersModule,
