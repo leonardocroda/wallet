@@ -5,7 +5,7 @@ export class CreateStatementTable1690636858726 implements MigrationInterface {
     await queryRunner.query(`
         CREATE TABLE IF NOT EXISTS statement (
           id VARCHAR(255) PRIMARY KEY,
-          accountId INT,
+          account_id INT,
           purchaseId VARCHAR(255) NULL,
           transferId VARCHAR(255) NULL,
           amount double,

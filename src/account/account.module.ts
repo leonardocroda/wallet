@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AccountEntity } from './infra/db/typeorm/account-entity';
+import { AccountSchema } from './infra/db/typeorm/account-schema';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AccountEntity])],
+  imports: [TypeOrmModule.forFeature([AccountSchema])],
 })
 export class AccountModule {}
