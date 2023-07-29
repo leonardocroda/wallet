@@ -5,7 +5,6 @@ export class ValidateUserUsecase {
   constructor(private getUserByEmailRepository: GetUserByEmailRepository) {}
   async execute(email: string, pass: string) {
     const user = await this.getUserByEmailRepository.getUserByEmail(email);
-    console.log({ user });
 
     if (user && user.password === pass) {
       const { password, ...result } = user;
