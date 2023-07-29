@@ -37,14 +37,14 @@ export class Transaction {
   }
 
   constructor(transaction: Partial<Transaction>) {
-    this.transferId = transaction.transferId;
-    this.purchaseId = transaction.purchaseId;
-    this.accountId = transaction.accountId;
-    this.type = transaction.type;
-    this.status = transaction.status;
-    this.sourceDestinationName = transaction.sourceDestinationName;
-    this.date = transaction.date;
-    this.amount = transaction.amount;
+    this.transferId = transaction?.transferId;
+    this.purchaseId = transaction?.purchaseId;
+    this.accountId = transaction?.accountId;
+    this.type = transaction?.type;
+    this.status = transaction?.status;
+    this.sourceDestinationName = transaction?.sourceDestinationName;
+    this.date = transaction?.date;
+    this.amount = transaction?.amount;
     this.id = this.getId();
   }
 }
