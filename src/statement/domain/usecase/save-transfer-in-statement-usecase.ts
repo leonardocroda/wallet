@@ -1,4 +1,8 @@
-import { Transaction } from '../entity/transaction.entity';
+import {
+  Transaction,
+  TransactionStatus,
+  TransactionType,
+} from '../entity/transaction.entity';
 import { TransferEntity } from '../entity/transfer.entity';
 import { UpsertStatementTransactionRepository } from '../gateways/repositories/upsert-statement-transaction-repository';
 
@@ -22,8 +26,8 @@ export class SaveTransferInStatementUsecase {
       amount: transfer.amount,
       date: transfer.date,
       sourceDestinationName: transfer.sourceDestinationName,
-      status: transfer.status,
-      type: transfer.type,
+      status: TransactionStatus[transfer.status],
+      type: TransactionType[transfer.type],
       transferId: transfer.id,
     });
   }

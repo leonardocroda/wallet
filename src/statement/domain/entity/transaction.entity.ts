@@ -1,10 +1,23 @@
+export enum TransactionType {
+  TRANSFER_IN = 'TRANSFER_IN',
+  TRANSFER_OUT = 'TRANSFER_OUT',
+  PURCHASE = 'PURCHASE',
+  REFUND = 'REFUND',
+}
+
+export enum TransactionStatus {
+  PROCESSING = 'PROCESSING',
+  PROCESSED = 'PROCESSED',
+  CANCELED = 'CANCELED',
+}
+
 export class Transaction {
   id: string;
   transferId?: string;
   purchaseId?: string;
   accountId: number;
-  type: 'TRANSFER_IN' | 'TRANSFER_OUT' | 'PURCHASE' | 'REFUND';
-  status: 'PROCESSING' | 'PROCESSED' | 'CANCELED';
+  type: TransactionType;
+  status: TransactionStatus;
   sourceDestinationName: string;
   date: string;
   amount: number;
