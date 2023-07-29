@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { StatementSchema } from './statement/infra/db/typeorm/statement-schema';
+import { StatementModule } from './statement/statement.module';
 import { UserSchema } from './user/infra/db/typeorm/user-schema';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -15,10 +17,11 @@ import { UserSchema } from './user/infra/db/typeorm/user-schema';
       username: 'user_teste',
       password: 'senha_teste',
       database: 'wallet',
-      entities: [UserSchema],
+      entities: [UserSchema, StatementSchema],
     }),
     AuthModule,
     UserModule,
+    StatementModule,
   ],
   controllers: [AppController],
   providers: [AppService],

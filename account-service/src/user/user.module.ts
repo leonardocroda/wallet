@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, getDataSourceToken } from '@nestjs/typeorm';
-import { UserSchema } from './infra/db/typeorm/user-schema';
+import { UserSchema } from '../user/infra/db/typeorm/user-schema';
 import { User } from './entity/user.entity';
 import { UserTypeOrmRepository } from './infra/db/typeorm/user-typeorm-repository';
 import { DataSource } from 'typeorm';
