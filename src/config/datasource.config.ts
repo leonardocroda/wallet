@@ -1,5 +1,5 @@
 import { DataSourceOptions } from 'typeorm';
-import { CreateTransactionTable1690636858726 } from '../statement/infra/db/typeorm/migrations/1690636858726-create_transaction_table';
+import { CreateTransactionTable1690661499206 } from '../statement/infra/db/typeorm/migrations/1690661499206-create_transaction_table';
 import { TransactionSchema } from '../statement/infra/db/typeorm/transaction-schema';
 import { UserSchema } from '../user/infra/db/typeorm/user-schema';
 import { AccountSchema } from '../account/infra/db/typeorm/account-schema';
@@ -20,7 +20,7 @@ export const dataSourceOptions = {
   migrations: [
     CreateUserTable1690649242920,
     InsertUserFake1690649278082,
-    CreateTransactionTable1690636858726,
+    CreateTransactionTable1690661499206,
     CreateAccountTable1690646689826,
     InsertAccountFake1690646820889,
   ],

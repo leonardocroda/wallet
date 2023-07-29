@@ -11,9 +11,11 @@ export const TransactionSchema = new EntitySchema<Transaction>({
     },
     purchaseId: {
       type: 'varchar',
+      nullable: true,
     },
     transferId: {
       type: 'varchar',
+      nullable: true,
     },
     amount: {
       type: 'double',
@@ -28,7 +30,7 @@ export const TransactionSchema = new EntitySchema<Transaction>({
       type: 'varchar',
     },
     date: {
-      type: 'varchar',
+      type: 'datetime',
     },
   },
   relations: {

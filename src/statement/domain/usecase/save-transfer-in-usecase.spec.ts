@@ -1,9 +1,9 @@
-import { SaveTransferInStatementUsecase } from './save-transfer-in-statement-usecase';
-import { UpsertStatementTransactionRepository } from '../gateways/repositories/upsert-statement-transaction-repository';
+import { SaveTransferInUsecase } from './save-transfer-in-usecase';
+import { UpsertTransactionRepository } from '../gateways/repositories/upsert-transaction-repository';
 import { TransferEntity } from '../entity/transfer.entity';
 describe('SaveTransferInStatementUsecase', () => {
-  let upsertStatementTransactionRepository: UpsertStatementTransactionRepository;
-  let sut: SaveTransferInStatementUsecase;
+  let upsertTransactionRepository: UpsertTransactionRepository;
+  let sut: SaveTransferInUsecase;
 
   const mockTransfer: TransferEntity = {
     accountId: 12345,
@@ -16,19 +16,15 @@ describe('SaveTransferInStatementUsecase', () => {
   };
 
   beforeEach(() => {
-    upsertStatementTransactionRepository = {
-      upsertStatementTransaction: jest.fn(),
+    upsertTransactionRepository = {
+      upsertTransaction: jest.fn(),
     };
-    sut = new SaveTransferInStatementUsecase(
-      upsertStatementTransactionRepository,
-    );
+    sut = new SaveTransferInUsecase(upsertTransactionRepository);
   });
   it('should call upsertStatementTransaction with the correct transaction', async () => {
     await sut.execute(mockTransfer);
 
-    expect(
-      upsertStatementTransactionRepository.upsertStatementTransaction,
-    ).toBeCalled();
+    expect(upsertTransactionRepository.upsertTransaction).toBeCalled();
   });
 
   it('should mapTransferToStatementTransaction correctly', () => {
