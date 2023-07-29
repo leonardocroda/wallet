@@ -3,7 +3,8 @@ import { AppService } from './app.service';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { UseGuards } from '@nestjs/common/decorators/core/use-guards.decorator';
 import { AuthService } from './auth/auth.service';
-import { LoginDto } from './user/dto/user.dto';
+import { LoginDto } from './user/application/dto/user.dto';
+
 @Controller()
 export class AppController {
   constructor(

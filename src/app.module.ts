@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { dataSourceOptions } from './config/datasource.config';
 import { StatementModule } from './statement/statement.module';
 import { UserModule } from './user/user.module';
+import { AccountModule } from './account/account.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { UserModule } from './user/user.module';
     AuthModule,
     UserModule,
     StatementModule,
+    AccountModule,
   ],
   controllers: [AppController],
   providers: [AppService],

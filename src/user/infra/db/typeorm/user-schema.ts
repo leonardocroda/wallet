@@ -1,4 +1,4 @@
-import { User } from '../../../../user/entity/user.entity';
+import { User } from '../../../domain/entity/user.entity';
 import { EntitySchema } from 'typeorm';
 
 export const UserSchema = new EntitySchema<User>({

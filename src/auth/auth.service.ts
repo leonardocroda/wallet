@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { GetUserByEmailUsecase } from '../user/usecase/get-user-by-email-usecase';
+import { GetUserByEmailUsecase } from '../user/domain/usecase/get-user-by-email-usecase';
 
 @Injectable()
 export class AuthService {
