@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { AccountEntity } from 'src/account/infra/db/typeorm/account-entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
 @Entity('user')
 export class UserEntity {
@@ -13,4 +14,10 @@ export class UserEntity {
 
   @Column({ type: 'varchar' })
   password: string;
+
+  @Column()
+  accountId: number;
+
+  @ManyToOne(() => AccountEntity, (account) => account.users)
+  account: AccountEntity;
 }

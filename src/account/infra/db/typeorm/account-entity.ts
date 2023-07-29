@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { UserEntity } from 'src/user/infra/db/typeorm/user-entity';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity('account')
 export class AccountEntity {
@@ -10,4 +11,7 @@ export class AccountEntity {
 
   @Column({ type: 'bigint', unique: true })
   number: number;
+
+  @OneToMany(() => UserEntity, (user) => user.account)
+  users: UserEntity[];
 }

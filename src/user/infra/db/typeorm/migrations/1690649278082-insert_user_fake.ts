@@ -1,9 +1,9 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class InsertUserTest1690500958218 implements MigrationInterface {
+export class InsertUserFake1690649278082 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     queryRunner.query(
-      "INSERT INTO user (email, password, name) VALUES ('teste@example.com', 'senha123', 'Usuário Teste');",
+      "INSERT INTO user (email, password, name, account_id) VALUES ('teste@example.com', 'senha123', 'Usuário Teste', 1);",
     );
   }
 
