@@ -1,16 +1,13 @@
 import { Transaction } from '../../../domain/entity/transaction.entity';
 import { EntitySchema } from 'typeorm';
 
-export const StatementSchema = new EntitySchema<Transaction>({
-  name: 'statement',
+export const TransactionSchema = new EntitySchema<Transaction>({
+  name: 'Transaction',
   target: Transaction,
   columns: {
     id: {
       type: 'varchar',
       primary: true,
-    },
-    accountId: {
-      type: 'varchar',
     },
     purchaseId: {
       type: 'varchar',
@@ -32,6 +29,16 @@ export const StatementSchema = new EntitySchema<Transaction>({
     },
     date: {
       type: 'varchar',
+    },
+  },
+  relations: {
+    account: {
+      target: 'Account',
+      type: 'many-to-one',
+      joinColumn: {
+        name: 'account_id',
+        referencedColumnName: 'id',
+      },
     },
   },
 });

@@ -24,5 +24,10 @@ export const AccountSchema = new EntitySchema<Account>({
       type: 'one-to-many',
       inverseSide: 'account',
     },
+    transactions: {
+      target: 'Transaction',
+      type: 'one-to-many',
+      inverseSide: 'account',
+    },
   },
 });

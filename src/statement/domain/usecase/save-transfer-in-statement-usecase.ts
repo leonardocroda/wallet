@@ -22,7 +22,7 @@ export class SaveTransferInStatementUsecase {
     transfer: TransferEntity,
   ): Transaction {
     return new Transaction({
-      accountId: transfer.accountId,
+      // accountId: transfer.accountId,
       amount: transfer.amount,
       date: transfer.date,
       sourceDestinationName: transfer.sourceDestinationName,

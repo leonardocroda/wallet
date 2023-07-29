@@ -1,3 +1,4 @@
+import { Transaction } from '../../../statement/domain/entity/transaction.entity';
 import { User } from '../../../user/domain/entity/user.entity';
 
 export class Account {
@@ -5,4 +6,5 @@ export class Account {
   number: number;
   balance: number;
   users?: User[];
+  transactions?: Transaction[];
 }

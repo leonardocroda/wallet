@@ -1,6 +1,6 @@
 import { DataSourceOptions } from 'typeorm';
-import { CreateStatementTable1690636858726 } from '../statement/infra/db/typeorm/migrations/1690636858726-create_statement_table';
-import { StatementSchema } from '../statement/infra/db/typeorm/statement-schema';
+import { CreateTransactionTable1690636858726 } from '../statement/infra/db/typeorm/migrations/1690636858726-create_transaction_table';
+import { TransactionSchema } from '../statement/infra/db/typeorm/transaction-schema';
 import { UserSchema } from '../user/infra/db/typeorm/user-schema';
 import { AccountSchema } from '../account/infra/db/typeorm/account-schema';
 import { CreateAccountTable1690646689826 } from '../account/infra/db/typeorm/migrations/1690646689826-create_account_table';
@@ -15,11 +15,12 @@ export const dataSourceOptions = {
   username: 'user_teste',
   password: 'senha_teste',
   database: 'wallet',
-  entities: [UserSchema, StatementSchema, AccountSchema],
+  entities: [UserSchema, TransactionSchema, AccountSchema],
+  // synchronize: true,
   migrations: [
     CreateUserTable1690649242920,
     InsertUserFake1690649278082,
-    CreateStatementTable1690636858726,
+    CreateTransactionTable1690636858726,
     CreateAccountTable1690646689826,
     InsertAccountFake1690646820889,
   ],
