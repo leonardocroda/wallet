@@ -3,7 +3,7 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import { TypeOrmModule, getDataSourceToken } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { jwtConstants } from '../config/constants';
-import { UserSchema } from '../user/infra/db/typeorm/user-schema';
+import { UserEntity } from './infra/db/typeorm/user-entity';
 import { UserController } from './application/controller/user.controller';
 import { User } from './domain/entity/user.entity';
 import { GetUserByEmailRepository } from './domain/gateways/get-user-by-email-repository';
@@ -17,7 +17,7 @@ import { LocalStrategy } from './infra/guards/local.strategy';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserSchema]),
+    TypeOrmModule.forFeature([UserEntity]),
     JwtModule.register({
       secret: jwtConstants.secret,
     }),
