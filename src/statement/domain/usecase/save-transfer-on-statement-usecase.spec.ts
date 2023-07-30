@@ -44,13 +44,13 @@ describe('SaveTransferOnStatementUsecase', () => {
     );
   });
   it('should call upsertStatementTransaction with the correct transaction', async () => {
-    await sut.execute(mockTransfer);
+    await sut.execute(mockTransfer, 1);
 
     expect(upsertTransactionRepository.upsertTransaction).toBeCalled();
   });
 
   it('should mapTransferToStatementTransaction correctly', () => {
-    sut.execute(mockTransfer);
+    sut.execute(mockTransfer, 1);
     const result = sut['mapTransferToTransaction'](mockTransfer);
 
     expect(result).toEqual(
@@ -67,7 +67,7 @@ describe('SaveTransferOnStatementUsecase', () => {
   });
 
   it('should add balance when input is a TRANSFER_IN', async () => {
-    await sut.execute(mockTransfer);
+    await sut.execute(mockTransfer, 1);
 
     expect(setBalanceProducer.setBalance).toBeCalledWith(
       expect.objectContaining({
@@ -78,7 +78,7 @@ describe('SaveTransferOnStatementUsecase', () => {
   });
 
   it('should subtract balance when input is a TRANSFER_OUT', async () => {
-    await sut.execute({ ...mockTransfer, type: TransferType.TRANSFER_OUT });
+    await sut.execute({ ...mockTransfer, type: TransferType.TRANSFER_OUT }, 1);
 
     expect(setBalanceProducer.setBalance).toBeCalledWith(
       expect.objectContaining({
@@ -89,7 +89,7 @@ describe('SaveTransferOnStatementUsecase', () => {
   });
 
   it('should add balance when trasnfer status = CANCELED', async () => {
-    await sut.execute({ ...mockTransfer, status: TransferStatus.CANCELED });
+    await sut.execute({ ...mockTransfer, status: TransferStatus.CANCELED }, 1);
 
     expect(setBalanceProducer.setBalance).toBeCalledWith(
       expect.objectContaining({

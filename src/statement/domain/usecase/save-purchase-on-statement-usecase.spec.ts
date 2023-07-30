@@ -46,13 +46,13 @@ describe('SavePurchaseOnStatementUsecase', () => {
     );
   });
   it('should call upsertStatementTransaction with the correct transaction', async () => {
-    await sut.execute(mockPurchase);
+    await sut.execute(mockPurchase, 1);
 
     expect(upsertTransactionRepository.upsertTransaction).toBeCalled();
   });
 
   it('should maPurchaseToStatementTransaction correctly', () => {
-    sut.execute(mockPurchase);
+    sut.execute(mockPurchase, 1);
     const result = sut['mapPurchaseToTransaction'](mockPurchase);
 
     expect(result).toEqual(
@@ -69,7 +69,7 @@ describe('SavePurchaseOnStatementUsecase', () => {
   });
 
   it('should add balance when input is a REFUND', async () => {
-    await sut.execute({ ...mockPurchase, type: PurchaseType.REFUND });
+    await sut.execute({ ...mockPurchase, type: PurchaseType.REFUND }, 1);
 
     expect(setBalanceProducer.setBalance).toBeCalledWith(
       expect.objectContaining({
@@ -80,7 +80,7 @@ describe('SavePurchaseOnStatementUsecase', () => {
   });
 
   it('should subtract balance when input is a PURCHASE', async () => {
-    await sut.execute({ ...mockPurchase });
+    await sut.execute({ ...mockPurchase }, 1);
 
     expect(setBalanceProducer.setBalance).toBeCalledWith(
       expect.objectContaining({
@@ -91,7 +91,7 @@ describe('SavePurchaseOnStatementUsecase', () => {
   });
 
   it('should add balance when trasnfer status = CANCELED', async () => {
-    await sut.execute({ ...mockPurchase, status: PurchaseStatus.CANCELED });
+    await sut.execute({ ...mockPurchase, status: PurchaseStatus.CANCELED }, 1);
 
     expect(setBalanceProducer.setBalance).toBeCalledWith(
       expect.objectContaining({
