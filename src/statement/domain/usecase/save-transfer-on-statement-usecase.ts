@@ -19,7 +19,7 @@ export class SaveTransferOnStatementUseCase {
     private readonly upsertTransaction: UpsertTransactionRepository,
     private readonly setBalanceProducer: SetBalanceProducer,
   ) {}
-  async execute(transfer: TransferEntity) {
+  async execute(transfer: TransferEntity, accountId: number) {
     const transaction = this.mapTransferToTransaction(transfer);
 
     await this.upsertTransaction.upsertTransaction(transaction);
@@ -27,6 +27,7 @@ export class SaveTransferOnStatementUseCase {
     await this.setBalanceProducer.setBalance({
       amount: transfer.amount,
       action: this.getSetBalanceAction(transfer),
+      accountId,
     });
   }
 

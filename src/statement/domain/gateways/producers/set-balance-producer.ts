@@ -6,6 +6,7 @@ export enum SetBalanceAction {
 export interface Message {
   action: SetBalanceAction;
   amount: number;
+  accountId: number;
 }
 
 export interface SetBalanceProducer {

@@ -19,7 +19,7 @@ export class SavePurchaseOnStatementUsecase {
     private readonly upsertTransaction: UpsertTransactionRepository,
     private readonly setBalanceProducer: SetBalanceProducer,
   ) {}
-  async execute(purchase: Purchase) {
+  async execute(purchase: Purchase, accountId: number) {
     const transaction = this.mapPurchaseToTransaction(purchase);
 
     await this.upsertTransaction.upsertTransaction(transaction);
@@ -27,6 +27,7 @@ export class SavePurchaseOnStatementUsecase {
     await this.setBalanceProducer.setBalance({
       amount: purchase.amount,
       action: this.getSetBalanceAction(purchase),
+      accountId,
     });
   }
 
