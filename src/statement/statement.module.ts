@@ -9,6 +9,7 @@ import { UpsertTransactionRepository } from './domain/gateways/repositories/upse
 import { SaveTransferOnStatementController } from './application/controllers/save-transfer-on-statement.controller';
 import { SetBalanceProducer } from './domain/gateways/producers/set-balance-producer';
 import { SetBalanceProducerImpl } from './infra/queue/rabbitmq/set-balance-producer';
+import { Transport, ClientProxyFactory } from '@nestjs/microservices';
 
 @Module({
   imports: [TypeOrmModule.forFeature([TransactionSchema])],
@@ -25,7 +26,18 @@ import { SetBalanceProducerImpl } from './infra/queue/rabbitmq/set-balance-produ
     {
       provide: SetBalanceProducerImpl,
       useFactory: () => {
-        return new SetBalanceProducerImpl();
+        const clientProxy = ClientProxyFactory.create({
+          transport: Transport.RMQ,
+          options: {
+            urls: ['amqp://guest:guest@localhost:5672'],
+            queue: 'SET_BALANCE',
+            prefetchCount: 1,
+            queueOptions: {
+              durable: true,
+            },
+          },
+        });
+        return new SetBalanceProducerImpl(clientProxy);
       },
       inject: [],
     },
