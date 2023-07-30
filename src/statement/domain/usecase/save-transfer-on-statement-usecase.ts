@@ -3,7 +3,11 @@ import {
   TransactionStatus,
   TransactionType,
 } from '../entity/transaction.entity';
-import { TransferEntity } from '../entity/transfer.entity';
+import {
+  TransferEntity,
+  TransferStatus,
+  TransferType,
+} from '../entity/transfer.entity';
 import {
   SetBalanceAction,
   SetBalanceProducer,
@@ -22,10 +26,7 @@ export class SaveTransferOnStatementUseCase {
 
     await this.setBalanceProducer.setBalance({
       amount: transfer.amount,
-      action:
-        transfer.type === 'TRANSFER_IN'
-          ? SetBalanceAction.ADD
-          : SetBalanceAction.SUBTRACT,
+      action: this.getSetBalanceAction(transfer),
     });
   }
 
@@ -39,5 +40,19 @@ export class SaveTransferOnStatementUseCase {
       type: TransactionType[transfer.type],
       transferId: transfer.id,
     });
+  }
+
+  private getSetBalanceAction(transfer: TransferEntity) {
+    if (transfer.status === TransferStatus.CANCELED) {
+      return SetBalanceAction.ADD;
+    }
+
+    if (transfer.type === TransferType.TRANSFER_IN) {
+      return SetBalanceAction.ADD;
+    }
+
+    if (transfer.type === TransferType.TRANSFER_OUT) {
+      return SetBalanceAction.SUBTRACT;
+    }
   }
 }

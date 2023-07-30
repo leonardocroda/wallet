@@ -87,4 +87,15 @@ describe('SaveTransferOnStatementUsecase', () => {
       }),
     );
   });
+
+  it('should add balance when trasnfer status = CANCELED', async () => {
+    await sut.execute({ ...mockTransfer, status: TransferStatus.CANCELED });
+
+    expect(setBalanceProducer.setBalance).toBeCalledWith(
+      expect.objectContaining({
+        action: SetBalanceAction.ADD,
+        amount: mockTransfer.amount,
+      }),
+    );
+  });
 });
