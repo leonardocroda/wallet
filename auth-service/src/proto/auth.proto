@@ -4,6 +4,13 @@ package auth;
 
 service AuthService {
   rpc Login (LoginDto) returns (Token) {}
+  rpc ValidateToken (Token) returns (User) {}
+}
+
+message User {
+  int32 id=1;
+  string email=2;
+  int32 accountId=3;
 }
 
 message Token {

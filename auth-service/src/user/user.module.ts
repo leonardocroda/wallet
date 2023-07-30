@@ -14,6 +14,9 @@ import { ValidateUserUsecase } from './domain/usecase/validate-user-usecase';
 import { UserTypeOrmRepository } from './infra/db/typeorm/user-typeorm-repository';
 import { JwtStrategy } from './infra/guards/jwt.strategy';
 import { LocalStrategy } from './infra/guards/local.strategy';
+import { ValidateTokenUsecase } from './domain/usecase/validate-token-usecase';
+import { VerifyJwtService } from './domain/gateways/verify-jwt-service';
+import { VerifyJwtServiceImpl } from './infra/services/verify-jwt-service-impl';
 
 @Module({
   imports: [
@@ -55,7 +58,15 @@ import { LocalStrategy } from './infra/guards/local.strategy';
       },
       inject: [UserTypeOrmRepository],
     },
+    {
+      provide: ValidateTokenUsecase,
+      useFactory: (verifyJwtService: VerifyJwtService) => {
+        return new ValidateTokenUsecase(verifyJwtService);
+      },
+      inject: [VerifyJwtServiceImpl],
+    },
     LocalStrategy,
+    VerifyJwtServiceImpl,
     JwtStrategy,
   ],
   exports: [GetUserByEmailUsecase],
