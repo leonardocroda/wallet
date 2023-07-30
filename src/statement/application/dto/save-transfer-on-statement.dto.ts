@@ -10,7 +10,7 @@ import {
   TransferType,
 } from 'src/statement/domain/entity/transfer.entity';
 
-export class SaveTransferInDto {
+export class SaveTransferOnStatementDto {
   @IsUUID()
   id: string;
 
