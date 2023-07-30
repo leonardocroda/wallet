@@ -1,7 +1,6 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { dataSourceOptions } from './config/datasource.config';
 import { StatementModule } from './statement/statement.module';
 import { UserModule } from './user/user.module';
@@ -16,7 +15,6 @@ import { JwtMiddleware } from './shared/middlewares/jwt.middleware';
     AccountModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
