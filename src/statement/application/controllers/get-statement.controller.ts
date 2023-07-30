@@ -1,16 +1,20 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 
-import { GetStatementUsecase } from '../../domain/usecase/get-statement-usecase';
+import { Request } from 'express';
 import { Transaction } from 'src/statement/domain/entity/transaction.entity';
 import { JwtAuthGuard } from 'src/user/infra/guards/jwt-auth.guard';
+import { GetStatementUsecase } from '../../domain/usecase/get-statement-usecase';
 
 @Controller('transaction')
 export class GetStatementController {
   constructor(private getStatementUsecase: GetStatementUsecase) {}
 
   @UseGuards(JwtAuthGuard)
-  @Get(':accountId')
-  async getOne(@Param('accountId') accountId: number): Promise<Transaction[]> {
+  @Get()
+  async getOne(
+    @Req() req: Request & { authorization: any },
+  ): Promise<Transaction[]> {
+    const accountId = req?.authorization?.accountId;
     return this.getStatementUsecase.execute({ accountId });
   }
 }
