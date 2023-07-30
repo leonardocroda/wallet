@@ -11,8 +11,8 @@ import { join } from 'path';
         name: 'USER_PACKAGE',
         transport: Transport.GRPC,
         options: {
-          package: 'user',
-          protoPath: join(__dirname, 'proto/user.proto'),
+          package: 'auth',
+          protoPath: join(__dirname, 'proto/auth.proto'),
         },
       },
     ]),
