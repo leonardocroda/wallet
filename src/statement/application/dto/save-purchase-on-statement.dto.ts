@@ -11,7 +11,7 @@ import {
 } from '../../domain/entity/purchase.entity';
 
 export class SavePurchaseOnStatementDto {
-  @IsUUID()
+  @IsUUID('4')
   id: string;
 
   @IsNumber()

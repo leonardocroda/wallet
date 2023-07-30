@@ -11,7 +11,7 @@ import {
 } from 'src/statement/domain/entity/transfer.entity';
 
 export class SaveTransferOnStatementDto {
-  @IsUUID()
+  @IsUUID('4')
   id: string;
 
   @IsNumber()
