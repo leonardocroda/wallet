@@ -14,7 +14,7 @@ import {
   SetBalanceProducer,
 } from '../gateways/producers/set-balance-producer';
 
-describe('SaveTransferInStatementUsecase', () => {
+describe('SaveTransferOnStatementUsecase', () => {
   let upsertTransactionRepository: UpsertTransactionRepository;
   let setBalanceProducer: SetBalanceProducer;
 
