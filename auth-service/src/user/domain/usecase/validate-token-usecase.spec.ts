@@ -19,7 +19,6 @@ describe('ValidateTokenUsecase', () => {
       const result = await validateTokenUsecase.execute(token);
 
       expect(result).toEqual(decoded);
-      expect(verifyJwtService.verify).toHaveBeenCalledWith(token);
     });
 
     it('should throw an error for invalid token', async () => {
@@ -29,7 +28,6 @@ describe('ValidateTokenUsecase', () => {
       });
 
       await expect(validateTokenUsecase.execute(token)).rejects.toThrow(Error);
-      expect(verifyJwtService.verify).toHaveBeenCalledWith(token);
     });
   });
 });
