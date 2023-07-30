@@ -23,7 +23,7 @@ export class Transaction {
   date: string;
   amount: number;
   accountId: number;
-  account?: Account;
+  account?: Partial<Account>;
 
   private getId() {
     if (this.type === 'TRANSFER_IN' || this.type === 'TRANSFER_OUT') {
@@ -52,8 +52,8 @@ export class Transaction {
     this.sourceDestinationName = transaction?.sourceDestinationName;
     this.date = transaction?.date;
     this.amount = transaction?.amount;
-    this.id = this?.getId();
-    this.account = transaction?.account;
     this.accountId = transaction?.accountId ?? transaction?.account?.id;
+    this.account = transaction?.account ?? { id: this.accountId };
+    this.id = this?.getId();
   }
 }
