@@ -20,6 +20,18 @@ export class TransactionTypeOrmRepository
   }: {
     accountId: number;
   }): Promise<Transaction[]> {
-    return this.repository.find({ where: { account: { id: accountId } } });
+    return this.repository.find({
+      where: { account: { id: accountId } },
+      relations: ['account'],
+      select: {
+        account: {
+          id: true,
+          balance: false,
+          number: false,
+          transactions: false,
+          users: false,
+        },
+      },
+    });
   }
 }

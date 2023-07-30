@@ -40,10 +40,13 @@ import { LocalStrategy } from './infra/guards/local.strategy';
     },
     {
       provide: LoginUsecase,
-      useFactory: (jwtService: IJwtService) => {
-        return new LoginUsecase(jwtService);
+      useFactory: (
+        jwtService: IJwtService,
+        repository: GetUserByEmailRepository,
+      ) => {
+        return new LoginUsecase(jwtService, repository);
       },
-      inject: [JwtService],
+      inject: [JwtService, UserTypeOrmRepository],
     },
     {
       provide: ValidateUserUsecase,

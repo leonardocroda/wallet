@@ -8,6 +8,7 @@ export class UserTypeOrmRepository implements GetUserByEmailRepository {
   async getUserByEmail(email: string): Promise<User> {
     return this.repository.findOne({
       where: { email },
+      relations: ['account'],
     });
   }
 }

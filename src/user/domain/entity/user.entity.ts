@@ -6,4 +6,5 @@ export class User {
   name: string;
   password?: string;
   account?: Account;
+  accountId?: number;
 }
