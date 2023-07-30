@@ -54,6 +54,6 @@ export class Transaction {
     this.amount = transaction?.amount;
     this.accountId = transaction?.accountId ?? transaction?.account?.id;
     this.account = transaction?.account ?? { id: this.accountId };
-    this.id = this?.getId();
+    this.id = transaction?.id ?? this?.getId();
   }
 }

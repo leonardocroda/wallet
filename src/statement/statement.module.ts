@@ -12,6 +12,9 @@ import { SetBalanceProducerImpl } from './infra/queue/rabbitmq/set-balance-produ
 import { Transport, ClientProxyFactory } from '@nestjs/microservices';
 import { SavePurchaseOnStatementController } from './application/controllers/save-purchase-on-statement.controller';
 import { SavePurchaseOnStatementUsecase } from './domain/usecase/save-purchase-on-statement-usecase';
+import { GetStatementUsecase } from './domain/usecase/get-statement-usecase';
+import { FindAllTransactionsRepository } from './domain/gateways/repositories/find-all-transactions-repository';
+import { GetStatementController } from './application/controllers/get-statement.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([TransactionSchema])],
@@ -70,10 +73,21 @@ import { SavePurchaseOnStatementUsecase } from './domain/usecase/save-purchase-o
       },
       inject: [TransactionTypeOrmRepository, SetBalanceProducerImpl],
     },
+
+    {
+      provide: GetStatementUsecase,
+      useFactory: (
+        findAllTransactionsRepository: FindAllTransactionsRepository,
+      ) => {
+        return new GetStatementUsecase(findAllTransactionsRepository);
+      },
+      inject: [TransactionTypeOrmRepository],
+    },
   ],
   controllers: [
     SaveTransferOnStatementController,
     SavePurchaseOnStatementController,
+    GetStatementController,
   ],
 })
 export class StatementModule {}

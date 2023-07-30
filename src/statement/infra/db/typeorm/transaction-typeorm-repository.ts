@@ -1,10 +1,10 @@
-import { Account } from 'src/account/domain/entity/account';
 import { Transaction } from '../../../domain/entity/transaction.entity';
 import { UpsertTransactionRepository } from '../../../domain/gateways/repositories/upsert-transaction-repository';
 import { Repository } from 'typeorm';
+import { FindAllTransactionsRepository } from 'src/statement/domain/gateways/repositories/find-all-transactions-repository';
 
 export class TransactionTypeOrmRepository
-  implements UpsertTransactionRepository
+  implements UpsertTransactionRepository, FindAllTransactionsRepository
 {
   constructor(private repository: Repository<Transaction>) {}
 
@@ -13,5 +13,13 @@ export class TransactionTypeOrmRepository
       ...transaction,
       account: { id: transaction.accountId },
     });
+  }
+
+  async findAllTransactions({
+    accountId,
+  }: {
+    accountId: number;
+  }): Promise<Transaction[]> {
+    return this.repository.find({ where: { account: { id: accountId } } });
   }
 }
