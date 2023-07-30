@@ -15,21 +15,22 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
-  # rabbitmq:
-  #   image: rabbitmq:3-management
-  #   container_name: rabbitmq_management
-  #   restart: always
-  #   environment:
-  #     - RABBITMQ_DEFAULT_USER = admin
-  #     - RABBITMQ_DEFAULT_PASS = passw123
-  #   ports:
-  #     - 25672:25672
-  #     - 15672:15672
-  #   volumes:
-  #     - /docker_conf/rabbitmq/data/:/var/lib/rabbitmq/
-
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq_management
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - 5672:5672
+      - 15672:15672
+    command: >
+      rabbitmq-server
+      --no-deprecated
+      --queue SET_BALANCE
 volumes:
   mysql_data:
-  # logs-folder:
-  #   name: ${log_rabbitmq_management}
-  #   driver: local
+  logs-folder:
+    name: ${log_rabbitmq_management}
+    driver: local

@@ -4,16 +4,29 @@ import {
   TransactionType,
 } from '../entity/transaction.entity';
 import { TransferEntity } from '../entity/transfer.entity';
+import {
+  SetBalanceAction,
+  SetBalanceProducer,
+} from '../gateways/producers/set-balance-producer';
 import { UpsertTransactionRepository } from '../gateways/repositories/upsert-transaction-repository';
 
-export class SaveTransferInUsecase {
+export class SaveTransferOnStatementUseCase {
   constructor(
     private readonly upsertTransaction: UpsertTransactionRepository,
+    private readonly setBalanceProducer: SetBalanceProducer,
   ) {}
   async execute(transfer: TransferEntity) {
     const transaction = this.mapTransferToTransaction(transfer);
 
     await this.upsertTransaction.upsertTransaction(transaction);
+
+    await this.setBalanceProducer.setBalance({
+      amount: transfer.amount,
+      action:
+        transfer.type === 'TRANSFER_IN'
+          ? SetBalanceAction.ADD
+          : SetBalanceAction.SUBTRACT,
+    });
   }
 
   private mapTransferToTransaction(transfer: TransferEntity): Transaction {
