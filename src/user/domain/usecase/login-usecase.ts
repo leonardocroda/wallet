@@ -9,9 +9,9 @@ export class LoginUsecase {
   async execute(user: any) {
     const { email, id, account, accountId } =
       await this.getUserByEmailRepository.getUserByEmail(user.email);
+    console.log('rodou');
 
     const payload = { email, id, accountId: accountId ?? account?.id };
-
     return {
       access_token: this.jwtService.sign(payload),
     };
