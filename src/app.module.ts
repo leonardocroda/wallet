@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { dataSourceOptions } from './config/datasource.config';
 import { StatementModule } from './statement/statement.module';
 import { UserModule } from './user/user.module';
 import { AccountModule } from './account/account.module';
+import { JwtMiddleware } from './shared/middlewares/jwt.middleware';
 
 @Module({
   imports: [
@@ -17,4 +18,8 @@ import { AccountModule } from './account/account.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(JwtMiddleware).forRoutes('/transaction/*');
+  }
+}

@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule, getDataSourceToken } from '@nestjs/typeorm';
 import { TransactionSchema } from './infra/db/typeorm/transaction-schema';
 import { TransactionTypeOrmRepository } from './infra/db/typeorm/transaction-typeorm-repository';
@@ -15,7 +15,6 @@ import { SavePurchaseOnStatementUsecase } from './domain/usecase/save-purchase-o
 import { GetStatementUsecase } from './domain/usecase/get-statement-usecase';
 import { FindAllTransactionsRepository } from './domain/gateways/repositories/find-all-transactions-repository';
 import { GetStatementController } from './application/controllers/get-statement.controller';
-import { JwtMiddleware } from '../shared/middlewares/jwt.middleware';
 
 @Module({
   imports: [TypeOrmModule.forFeature([TransactionSchema])],
@@ -91,8 +90,4 @@ import { JwtMiddleware } from '../shared/middlewares/jwt.middleware';
     GetStatementController,
   ],
 })
-export class StatementModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(JwtMiddleware).forRoutes('/transaction/*');
-  }
-}
+export class StatementModule {}
