@@ -8,18 +8,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.connectMicroservice<MicroserviceOptions>({
-    transport: Transport.RMQ,
-    options: {
-      urls: ['amqp://guest:guest@localhost:5672'],
-      queue: 'SET_BALANCE',
-      prefetchCount: 1,
-      queueOptions: {
-        durable: true,
-      },
-    },
-  });
-
-  app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.GRPC,
     options: {
       protoPath: join(__dirname, '..', 'proto/user.proto'),

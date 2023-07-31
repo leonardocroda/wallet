@@ -32,15 +32,9 @@ export const TransactionSchema = new EntitySchema<Transaction>({
     date: {
       type: 'datetime',
     },
-  },
-  relations: {
-    account: {
-      target: 'Account',
-      type: 'many-to-one',
-      joinColumn: {
-        name: 'account_id',
-        referencedColumnName: 'id',
-      },
+    accountId: {
+      type: 'bigint',
+      name: 'account_id',
     },
   },
 });

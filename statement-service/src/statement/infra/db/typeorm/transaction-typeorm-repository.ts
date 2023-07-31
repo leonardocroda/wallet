@@ -9,10 +9,7 @@ export class TransactionTypeOrmRepository
   constructor(private repository: Repository<Transaction>) {}
 
   async upsertTransaction(transaction: Transaction): Promise<void> {
-    await this.repository.save({
-      ...transaction,
-      account: { id: transaction.accountId },
-    });
+    await this.repository.save(transaction);
   }
 
   async findAllTransactions({
@@ -21,17 +18,7 @@ export class TransactionTypeOrmRepository
     accountId: number;
   }): Promise<Transaction[]> {
     return this.repository.find({
-      where: { account: { id: accountId } },
-      relations: ['account'],
-      select: {
-        account: {
-          id: true,
-          balance: false,
-          number: false,
-          transactions: false,
-          users: false,
-        },
-      },
+      where: { accountId: accountId },
     });
   }
 }
