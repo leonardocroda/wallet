@@ -15,6 +15,9 @@ import { SavePurchaseOnStatementUsecase } from './domain/usecase/save-purchase-o
 import { GetStatementUsecase } from './domain/usecase/get-statement-usecase';
 import { FindAllTransactionsRepository } from './domain/gateways/repositories/find-all-transactions-repository';
 import { GetStatementController } from './application/controllers/get-statement.controller';
+import { config } from 'dotenv';
+
+config();
 
 @Module({
   imports: [TypeOrmModule.forFeature([TransactionSchema])],
@@ -34,7 +37,11 @@ import { GetStatementController } from './application/controllers/get-statement.
         const clientProxy = ClientProxyFactory.create({
           transport: Transport.RMQ,
           options: {
-            urls: ['amqp://guest:guest@localhost:5672'],
+            urls: [
+              `amqp://guest:guest@${
+                process.env.NODE_ENV === 'LOCAL' ? 'localhost' : 'rabbitmq'
+              }:5672`,
+            ],
             queue: 'SET_BALANCE',
             prefetchCount: 1,
             queueOptions: {

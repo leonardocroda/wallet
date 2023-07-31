@@ -8,6 +8,9 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { SetBalanceController } from './application/controllers/set-balance.controller';
 import { SetBalanceUsecase } from './domain/usecase/set-balance-usecase';
 import { SetBalanceRepository } from './domain/gateway/set-balance-repository';
+import { config } from 'dotenv';
+
+config();
 
 @Module({
   imports: [
@@ -17,7 +20,11 @@ import { SetBalanceRepository } from './domain/gateway/set-balance-repository';
         name: 'SET_BALANCE',
         transport: Transport.RMQ,
         options: {
-          urls: ['amqp://guest:guest@localhost:5672'],
+          urls: [
+            `amqp://guest:guest@${
+              process.env.NODE_ENV === 'LOCAL' ? 'localhost' : 'rabbitmq'
+            }:5672`,
+          ],
           queue: 'SET_BALANCE',
           prefetchCount: 1,
           queueOptions: {

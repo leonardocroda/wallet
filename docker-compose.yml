@@ -23,12 +23,8 @@ services:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
     ports:
-      - 5672:5672
-      - 15672:15672
-    command: >
-      rabbitmq-server
-      --no-deprecated
-      --queue SET_BALANCE
+      - "5672:5672"
+      - "15672:15672"
 
   api-gateway:
     container_name: api-gateway
@@ -53,6 +49,8 @@ services:
     build:
       context: ./account-service
       dockerfile: ../Dockerfile
+    links:
+      - rabbitmq
     depends_on:
       - mysql
       - rabbitmq
@@ -63,6 +61,8 @@ services:
     build:
       context: ./statement-service
       dockerfile: ../Dockerfile
+    links:
+      - rabbitmq
     depends_on:
       - mysql
       - rabbitmq
