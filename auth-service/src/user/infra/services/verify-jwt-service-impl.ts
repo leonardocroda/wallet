@@ -11,7 +11,7 @@ export class VerifyJwtServiceImpl implements VerifyJwtService {
 
       return decoded as { accountId: number; email: string; id: number };
     } catch (error) {
-      console.log(error);
+      return { accountId: 0, email: '', id: 0 };
     }
   }
 }

@@ -1,8 +1,9 @@
-import { Controller, Post, OnModuleInit, Body, Req } from '@nestjs/common';
+import { Controller, Post, OnModuleInit, Body, Req, Res } from '@nestjs/common';
 import { Client, ClientGrpc } from '@nestjs/microservices';
 import { userClient } from './clients/user-client';
-import { LoginDto, Token, AuthService } from './proto/build/auth';
-import { Request } from 'express';
+import { LoginDto, Token, AuthService, User } from './proto/build/auth';
+import { Request, Response } from 'express';
+import { Observable } from 'rxjs';
 
 @Controller('auth')
 export class AppController implements OnModuleInit {
@@ -21,9 +22,21 @@ export class AppController implements OnModuleInit {
   }
 
   @Post('/verify')
-  async verify(@Req() request: Request) {
-    return this.authService.ValidateToken({
-      access_token: request.headers.authorization,
-    });
+  async verify(@Req() request: Request, @Res() response: Response) {
+    try {
+      const observable = (await this.authService.ValidateToken({
+        access_token: request.headers.authorization,
+      })) as unknown as Observable<User>;
+
+      const token = await observable.toPromise();
+
+      if (token.accountId && token.id && token.email) {
+        return response.status(200).json(token);
+      } else {
+        return response.status(401).send();
+      }
+    } catch (err) {
+      return response.status(401).send();
+    }
   }
 }
