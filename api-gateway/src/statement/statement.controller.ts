@@ -1,31 +1,27 @@
-import { Controller, Get, OnModuleInit, Req } from '@nestjs/common';
+import { Controller, Get, OnModuleInit, Req, Res } from '@nestjs/common';
 import { Client, ClientGrpc } from '@nestjs/microservices';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { statementClient } from '../clients/statement-client';
 import { StatementService, Transaction } from '../proto/build/statement';
-import { Observable } from 'rxjs';
+
+import { TransactionsService } from './transactios.service';
+import { AuthenticationService } from 'src/auth/authentication.service';
 
 @Controller('transactions')
-export class StatementController implements OnModuleInit {
-  @Client(statementClient)
-  private readonly client: ClientGrpc;
-
-  private statementService: StatementService;
-
-  onModuleInit() {
-    this.statementService =
-      this.client.getService<StatementService>('StatementService');
-  }
+export class StatementController {
+  constructor(
+    private statementService: TransactionsService,
+    private authService: AuthenticationService,
+  ) {}
 
   @Get()
-  async getAll(@Req() req: Request) {
-    const accountId = 1;
-    const observable = this.statementService.GetAll({
-      accountId,
-    }) as unknown as Observable<Transaction[]>;
+  async getAll(@Req() req: Request, @Res() resp: Response) {
+    const user = await this.authService.validateToken(req);
+    if (user) {
+      const transactions = await this.statementService.getAll(user.accountId);
+      return resp.status(200).json(transactions);
+    }
 
-    const transactions = await observable.toPromise();
-
-    return transactions;
+    return resp.status(401).send();
   }
 }

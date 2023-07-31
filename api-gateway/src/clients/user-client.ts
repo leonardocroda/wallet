@@ -7,5 +7,6 @@ export const userClient: ClientOptions = {
     package: 'auth',
     protoPath: join(__dirname, '../proto/auth.proto'),
     loader: { keepCase: true },
+    url: '0.0.0.0:50051',
   },
 };
