@@ -10,9 +10,9 @@ async function bootstrap() {
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.GRPC,
     options: {
-      protoPath: join(__dirname, '..', 'proto/user.proto'),
+      protoPath: join(__dirname, 'proto/statement.proto'),
       loader: { keepCase: true },
-      package: 'user',
+      package: 'statement',
     },
   });
 

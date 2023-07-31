@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package statement;
+
+service StatementService {
+  rpc GetAll (GetAllDto) returns (TransactionsList) {}
+}
+
+message Transaction {
+  string id=1;
+  string transferId=2;
+  string purchaseId=3;
+  string type=4;
+  string status=5;
+  string sourceDestinationName=6;
+  string date=7;
+  double amount=8;
+  int32 accountId=9;
+}
+
+message GetAllDto {
+  int32 accountId=1;
+}
+
+message TransactionsList {
+  repeated Transaction transactions = 1;
+}

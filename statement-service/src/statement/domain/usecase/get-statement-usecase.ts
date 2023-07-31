@@ -5,12 +5,16 @@ export class GetStatementUsecase {
   constructor(
     private readonly findAllTransactionsRepository: FindAllTransactionsRepository,
   ) {}
-  async execute({ accountId }: { accountId: number }): Promise<Transaction[]> {
+  async execute({
+    accountId,
+  }: {
+    accountId: number;
+  }): Promise<{ transactions: Transaction[] }> {
     const transactions =
       await this.findAllTransactionsRepository.findAllTransactions({
         accountId,
       });
 
-    return transactions;
+    return { transactions };
   }
 }
