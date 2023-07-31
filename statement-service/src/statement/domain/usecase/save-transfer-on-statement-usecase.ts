@@ -39,7 +39,7 @@ export class SaveTransferOnStatementUseCase {
       sourceDestinationName: transfer.sourceDestinationName,
       status: TransactionStatus[transfer.status],
       type: TransactionType[transfer.type],
-      transferId: transfer.id,
+      externalId: transfer.id,
     });
   }
 

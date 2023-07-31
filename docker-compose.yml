@@ -30,46 +30,45 @@ services:
     container_name: api-gateway
     build:
       context: ./api-gateway
-      dockerfile: ../Dockerfile
+      dockerfile: ./Dockerfile
     working_dir: /usr/src/app
     ports:
       - 3000:3000
-
-  auth-service:
-    container_name: auth-service
-    build:
-      context: ./auth-service
-      dockerfile: ../Dockerfile
-    depends_on:
-      - mysql
-    working_dir: /usr/src/app
 
   account-service:
     container_name: account-service
     build:
       context: ./account-service
-      dockerfile: ../Dockerfile
+      dockerfile: ./Dockerfile
     links:
       - rabbitmq
     depends_on:
       - mysql
       - rabbitmq
+    working_dir: /usr/src/app
+
+  auth-service:
+    container_name: auth-service
+    build:
+      context: ./auth-service
+      dockerfile: ./Dockerfile
+    depends_on:
+      - mysql
+      - account-service
     working_dir: /usr/src/app
 
   statement-service:
     container_name: statement-service
     build:
       context: ./statement-service
-      dockerfile: ../Dockerfile
+      dockerfile: ./Dockerfile
     links:
       - rabbitmq
     depends_on:
       - mysql
       - rabbitmq
+      - account-service
     working_dir: /usr/src/app
 
 volumes:
   mysql_data:
-  logs-folder:
-    name: ${log_rabbitmq_management}
-    driver: local

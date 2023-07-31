@@ -6,8 +6,7 @@ export class CreateTransactionTable1690661499206 implements MigrationInterface {
           CREATE TABLE IF NOT EXISTS transaction (
             id VARCHAR(255) PRIMARY KEY,
             account_id INT,
-            purchaseId VARCHAR(255) NULL,
-            transferId VARCHAR(255) NULL,
+            external_id VARCHAR(255) NULL,
             amount double,
             type VARCHAR(255),
             sourceDestinationName VARCHAR(255),

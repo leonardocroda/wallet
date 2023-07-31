@@ -63,7 +63,7 @@ describe('SavePurchaseOnStatementUsecase', () => {
         sourceDestinationName: mockPurchase.merchantName,
         status: TransactionStatus.PROCESSED,
         type: TransactionType.PURCHASE,
-        purchaseId: 'purchase-id',
+        externalId: 'purchase-id',
       }),
     );
   });

@@ -10,14 +10,13 @@ service StatementService {
 
 message Transaction {
   string id=1;
-  string transferId=2;
-  string purchaseId=3;
-  string type=4;
-  string status=5;
-  string sourceDestinationName=6;
-  string date=7;
-  double amount=8;
-  int32 accountId=9;
+  string externalId=2;
+  string type=3;
+  string status=4;
+  string sourceDestinationName=5;
+  string date=6;
+  double amount=7;
+  int32 accountId=8;
 }
 
 message GetAllDto {

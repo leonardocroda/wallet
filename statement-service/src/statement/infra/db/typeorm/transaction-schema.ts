@@ -9,13 +9,9 @@ export const TransactionSchema = new EntitySchema<Transaction>({
       type: 'varchar',
       primary: true,
     },
-    purchaseId: {
+    externalId: {
       type: 'varchar',
-      nullable: true,
-    },
-    transferId: {
-      type: 'varchar',
-      nullable: true,
+      name: 'external_id',
     },
     amount: {
       type: 'double',

@@ -10,8 +10,7 @@ export interface GetAllDto {
 
 export interface Transaction {
   id: string;
-  transferId?: string;
-  purchaseId?: string;
+  externalId: string;
   type: string;
   status: string;
   sourceDestinationName: string;

@@ -13,8 +13,7 @@ export enum TransactionStatus {
 
 export class Transaction {
   id: string;
-  transferId?: string;
-  purchaseId?: string;
+  externalId: string;
   type: TransactionType;
   status: TransactionStatus;
   sourceDestinationName: string;
@@ -23,22 +22,13 @@ export class Transaction {
   accountId: number;
 
   private getId() {
-    if (this.type === 'TRANSFER_IN' || this.type === 'TRANSFER_OUT') {
-      return Buffer.from(
-        `${this.transferId}#${this.accountId}#${this.date}#${this.amount}#${this.sourceDestinationName}`,
-      ).toString('base64');
-    }
-
-    if (this.type === 'PURCHASE' || this.type === 'REFUND') {
-      return Buffer.from(
-        `${this.purchaseId}#${this.accountId}#${this.date}#${this.amount}#${this.sourceDestinationName}`,
-      ).toString('base64');
-    }
+    return Buffer.from(
+      `${this.externalId}#${this.accountId}#${this.date}#${this.amount}#${this.sourceDestinationName}`,
+    ).toString('base64');
   }
 
   constructor(transaction: Partial<Transaction>) {
-    this.transferId = transaction?.transferId;
-    this.purchaseId = transaction?.purchaseId;
+    this.externalId = transaction?.externalId;
     this.type = transaction?.type;
     this.status = transaction?.status;
     this.sourceDestinationName = transaction?.sourceDestinationName;

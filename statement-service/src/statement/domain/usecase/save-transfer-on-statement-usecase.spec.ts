@@ -61,7 +61,7 @@ describe('SaveTransferOnStatementUsecase', () => {
         sourceDestinationName: 'John Doe',
         status: TransactionStatus.PROCESSED,
         type: TransactionType.TRANSFER_IN,
-        transferId: 'transfer-id',
+        externalId: 'transfer-id',
       }),
     );
   });

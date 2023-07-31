@@ -39,7 +39,7 @@ export class SavePurchaseOnStatementUsecase {
       sourceDestinationName: purchase.merchantName,
       status: TransactionStatus[purchase.status],
       type: TransactionType[purchase.type],
-      purchaseId: purchase.id,
+      externalId: purchase.id,
     });
   }
 
