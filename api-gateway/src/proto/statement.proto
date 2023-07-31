@@ -4,6 +4,8 @@ package statement;
 
 service StatementService {
   rpc GetAll (GetAllDto) returns (TransactionsList) {}
+  rpc SavePurchaseOnStatement (Purchase) returns (Empty) {}
+  rpc SaveTransferOnStatement (Transfer) returns (Empty) {}
 }
 
 message Transaction {
@@ -25,3 +27,26 @@ message GetAllDto {
 message TransactionsList {
   repeated Transaction transactions = 1;
 }
+
+message Purchase {
+  string id=1;
+  string cnpj=2 ;
+  string merchantName=3;
+  string date=4;
+  string type=5;
+  string status=6;
+  int32 accountId=7;
+  double amount=8;
+}
+
+message Transfer {
+  string id= 1;
+  string type= 2;
+  string status= 3;
+  string sourceDestinationName= 4;
+  string date= 5;
+  int32 accountId=6;
+  double amount=7;
+}
+
+message Empty {}

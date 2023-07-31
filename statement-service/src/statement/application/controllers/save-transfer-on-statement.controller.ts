@@ -1,22 +1,19 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller } from '@nestjs/common';
 import { SaveTransferOnStatementUseCase } from '../../domain/usecase/save-transfer-on-statement-usecase';
 import { SaveTransferOnStatementDto } from '../dto/save-transfer-on-statement.dto';
-import { Request } from 'express';
+import { GrpcMethod } from '@nestjs/microservices';
 
-@Controller('transaction')
+@Controller()
 export class SaveTransferOnStatementController {
   constructor(
     private saveTransferOnStatementUsecase: SaveTransferOnStatementUseCase,
   ) {}
 
-  @Post('/transfer')
-  async login(
-    @Body() transfer: SaveTransferOnStatementDto,
-    @Req() req: Request & { authorization: any },
-  ) {
+  @GrpcMethod('StatementService', 'SaveTransferOnStatement')
+  async login(@Body() transfer: SaveTransferOnStatementDto) {
     return this.saveTransferOnStatementUsecase.execute(
       transfer,
-      req.authorization.accountId,
+      transfer.accountId,
     );
   }
 }

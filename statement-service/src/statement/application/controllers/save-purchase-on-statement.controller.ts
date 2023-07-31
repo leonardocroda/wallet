@@ -1,22 +1,19 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller } from '@nestjs/common';
 import { SavePurchaseOnStatementUsecase } from '../../domain/usecase/save-purchase-on-statement-usecase';
 import { SavePurchaseOnStatementDto } from '../dto/save-purchase-on-statement.dto';
-import { Request } from 'express';
+import { GrpcMethod } from '@nestjs/microservices';
 
-@Controller('transaction')
+@Controller()
 export class SavePurchaseOnStatementController {
   constructor(
     private savePurchaseOnStatementUsecase: SavePurchaseOnStatementUsecase,
   ) {}
 
-  @Post('/purchase')
-  async login(
-    @Body() purchase: SavePurchaseOnStatementDto,
-    @Req() req: Request & { authorization: any },
-  ) {
+  @GrpcMethod('StatementService', 'SavePurchaseOnStatement')
+  async savePurchaseOnStatement(@Body() purchase: SavePurchaseOnStatementDto) {
     return this.savePurchaseOnStatementUsecase.execute(
       purchase,
-      req.authorization.accountId,
+      purchase.accountId,
     );
   }
 }
