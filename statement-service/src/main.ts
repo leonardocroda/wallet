@@ -12,6 +12,7 @@ async function bootstrap() {
         protoPath: join(__dirname, 'proto/statement.proto'),
         loader: { keepCase: true },
         package: 'statement',
+        url: '0.0.0.0:50052',
       },
     },
   );

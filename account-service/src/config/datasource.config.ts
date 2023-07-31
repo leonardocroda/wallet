@@ -5,7 +5,7 @@ import { InsertAccountFake1690646820889 } from 'src/account/infra/db/typeorm/mig
 
 export const dataSourceOptions = {
   type: 'mysql',
-  host: 'localhost',
+  host: process.env.NODE_ENV === 'LOCAL' ? 'localhost' : 'mysql',
   port: 3306,
   username: 'user_teste',
   password: 'senha_teste',
