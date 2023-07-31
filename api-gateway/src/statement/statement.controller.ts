@@ -1,11 +1,7 @@
-import { Controller, Get, OnModuleInit, Req, Res } from '@nestjs/common';
-import { Client, ClientGrpc } from '@nestjs/microservices';
+import { Controller, Get, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { statementClient } from '../clients/statement-client';
-import { StatementService, Transaction } from '../proto/build/statement';
-
-import { TransactionsService } from './transactios.service';
 import { AuthenticationService } from 'src/auth/authentication.service';
+import { TransactionsService } from './transactios.service';
 
 @Controller('transactions')
 export class StatementController {
