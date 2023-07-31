@@ -1,7 +1,6 @@
 import { DataSourceOptions } from 'typeorm';
 
 import { UserSchema } from '../user/infra/db/typeorm/user-schema';
-import { AccountSchema } from '../account/infra/db/typeorm/account-schema';
 
 export const dataSourceOptions = {
   type: 'mysql',
@@ -10,5 +9,5 @@ export const dataSourceOptions = {
   username: 'user_teste',
   password: 'senha_teste',
   database: 'wallet',
-  entities: [UserSchema, AccountSchema],
+  entities: [UserSchema],
 } as DataSourceOptions;

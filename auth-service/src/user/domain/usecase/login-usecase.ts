@@ -7,10 +7,10 @@ export class LoginUsecase {
     private getUserByEmailRepository: GetUserByEmailRepository,
   ) {}
   async execute(user: any) {
-    const { email, id, account, accountId } =
+    const { email, id, accountId } =
       await this.getUserByEmailRepository.getUserByEmail(user.email);
 
-    const payload = { email, id, accountId: accountId ?? account?.id };
+    const payload = { email, id, accountId };
     return {
       access_token: this.jwtService.sign(payload),
     };

@@ -19,15 +19,9 @@ export const UserSchema = new EntitySchema<User>({
     password: {
       type: 'varchar',
     },
-  },
-  relations: {
-    account: {
-      target: 'Account',
-      type: 'many-to-one',
-      joinColumn: {
-        name: 'account_id',
-        referencedColumnName: 'id',
-      },
+    accountId: {
+      type: 'bigint',
+      name: 'account_id',
     },
   },
 });

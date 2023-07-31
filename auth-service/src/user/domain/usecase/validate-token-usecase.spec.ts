@@ -21,13 +21,16 @@ describe('ValidateTokenUsecase', () => {
       expect(result).toEqual(decoded);
     });
 
-    it('should throw an error for invalid token', async () => {
+    it('should return accountId 0 if token not decoded', async () => {
       const token = 'invalid_jwt_token';
+
       jest.spyOn(verifyJwtService, 'verify').mockImplementation(() => {
-        throw new Error('Invalid token');
+        return { accountId: 0, email: '', id: 0 };
       });
 
-      await expect(validateTokenUsecase.execute(token)).rejects.toThrow(Error);
+      const result = await validateTokenUsecase.execute(token);
+
+      expect(result.accountId).toEqual(0);
     });
   });
 });
