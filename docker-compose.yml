@@ -46,6 +46,7 @@ services:
       - mysql
       - rabbitmq
     working_dir: /usr/src/app
+    restart: always
 
   auth-service:
     container_name: auth-service
@@ -56,6 +57,7 @@ services:
       - mysql
       - account-service
     working_dir: /usr/src/app
+    restart: always
 
   statement-service:
     container_name: statement-service
@@ -69,6 +71,7 @@ services:
       - rabbitmq
       - account-service
     working_dir: /usr/src/app
+    restart: always
 
 volumes:
   mysql_data:
