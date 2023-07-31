@@ -2,8 +2,16 @@ import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AuthenticationService } from 'src/auth/authentication.service';
 import { TransactionsService } from './transactios.service';
-import { Purchase, Transfer } from 'src/proto/build/statement';
+import {
+  ApiOkResponse,
+  ApiUnauthorizedResponse,
+  ApiTags,
+  ApiCreatedResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
+import { Purchase, Transaction, Transfer } from './dto/statement.dto';
 
+@ApiTags('Transactions')
 @Controller('transactions')
 export class StatementController {
   constructor(
@@ -11,6 +19,14 @@ export class StatementController {
     private authService: AuthenticationService,
   ) {}
 
+  @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Transactions list',
+    type: Transaction,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized',
+  })
   @Get()
   async getAll(@Req() req: Request, @Res() resp: Response) {
     const user = await this.authService.validateToken(req);
@@ -22,6 +38,13 @@ export class StatementController {
     return resp.status(401).send();
   }
 
+  @ApiBearerAuth()
+  @ApiCreatedResponse({
+    description: 'Created',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized',
+  })
   @Post('/purchase')
   async savePurchaseOnStatement(
     @Req() req: Request,
@@ -38,6 +61,13 @@ export class StatementController {
     return resp.status(401).send();
   }
 
+  @ApiBearerAuth()
+  @ApiCreatedResponse({
+    description: 'Created',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized',
+  })
   @Post('/transfer')
   async saveTransferOnStatement(
     @Req() req: Request,

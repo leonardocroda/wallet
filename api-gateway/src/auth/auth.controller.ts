@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
-import { LoginRequestDto, LoginResponseDto } from './dto/login.dto';
+import { LoginRequest, LoginResponse } from './dto/login.dto';
 import {
   ApiOkResponse,
   ApiUnauthorizedResponse,
@@ -14,13 +14,13 @@ export class AuthController {
 
   @ApiOkResponse({
     description: 'Access token',
-    type: LoginResponseDto,
+    type: LoginResponse,
   })
   @ApiUnauthorizedResponse({
     description: 'Unauthorized',
   })
   @Post('/login')
-  async login(@Body() login: LoginRequestDto): Promise<LoginResponseDto> {
+  async login(@Body() login: LoginRequest): Promise<LoginResponse> {
     return this.authService.login(login);
   }
 }
