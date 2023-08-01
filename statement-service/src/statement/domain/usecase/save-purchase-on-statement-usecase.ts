@@ -24,7 +24,7 @@ export class SavePurchaseOnStatementUsecase {
   async execute(purchase: Purchase, accountId: number) {
     const transaction = this.mapPurchaseToTransaction(purchase);
 
-    const existentTransaction = this.findOneTransactionRepository.findOne(
+    const existentTransaction = await this.findOneTransactionRepository.findOne(
       transaction.id,
     );
 

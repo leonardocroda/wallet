@@ -24,7 +24,7 @@ export class SaveTransferOnStatementUseCase {
   async execute(transfer: TransferEntity, accountId: number) {
     const transaction = this.mapTransferToTransaction(transfer);
 
-    const existentTransaction = this.findOneTransactionRepository.findOne(
+    const existentTransaction = await this.findOneTransactionRepository.findOne(
       transaction.id,
     );
 
