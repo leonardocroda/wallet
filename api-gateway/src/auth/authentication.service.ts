@@ -1,9 +1,13 @@
-import { OnModuleInit, Injectable } from '@nestjs/common';
+import {
+  OnModuleInit,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Client, ClientGrpc } from '@nestjs/microservices';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
 import { userClient } from '../clients/user-client';
-import { AuthService, LoginDto, User } from '../proto/build/auth';
+import { AuthService, LoginDto, Token, User } from '../proto/build/auth';
 
 @Injectable()
 export class AuthenticationService implements OnModuleInit {
@@ -29,6 +33,15 @@ export class AuthenticationService implements OnModuleInit {
   }
 
   async login(login: LoginDto) {
-    return this.authService.Login(login);
+    const observable = (await this.authService.Login(
+      login,
+    )) as unknown as Observable<Token>;
+    const response = await observable.toPromise();
+
+    if (response.access_token === 'invalid') {
+      throw new UnauthorizedException();
+    }
+
+    return response;
   }
 }
