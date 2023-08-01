@@ -1,8 +1,6 @@
-import { Account } from '../../../account/domain/entity/account';
 import { GetUserByEmailRepository } from '../gateways/get-user-by-email-repository';
 import { LoginUsecase } from './login-usecase';
 
-// Mock para o serviço IJwtService
 class MockJwtService {
   sign(payload: any) {
     return `fake_token_for_${payload.email}`;
@@ -24,7 +22,7 @@ describe('LoginUsecase', () => {
             email,
             id: 123,
             name: 'teste',
-            account: { id: 1 } as Account,
+            accountId: 1,
           });
         }
       }),
