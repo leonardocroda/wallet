@@ -23,6 +23,7 @@ describe('LoginUsecase', () => {
             id: 123,
             name: 'teste',
             accountId: 1,
+            password: '123',
           });
         }
       }),
@@ -31,12 +32,32 @@ describe('LoginUsecase', () => {
   });
 
   it('should return an object with an access_token when executed', async () => {
-    const user = { id: 123, email: 'example@example.com' };
+    const user = { email: 'example@example.com', password: '123' };
 
     const result = await loginUsecase.execute(user);
 
     expect(result).toHaveProperty('access_token');
 
     expect(result.access_token).toEqual('fake_token_for_example@example.com');
+  });
+
+  it('should return an invalid access_token when user does not exist', async () => {
+    const user = { email: 'notfound@example.com', password: '123' };
+
+    const result = await loginUsecase.execute(user);
+
+    expect(result).toHaveProperty('access_token');
+
+    expect(result.access_token).toEqual('invalid');
+  });
+
+  it('should return an invalid access_token when password does not match', async () => {
+    const user = { email: 'example@example.com', password: 'notmatch' };
+
+    const result = await loginUsecase.execute(user);
+
+    expect(result).toHaveProperty('access_token');
+
+    expect(result.access_token).toEqual('invalid');
   });
 });
