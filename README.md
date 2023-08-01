@@ -21,7 +21,6 @@ Claro! Vamos adicionar as novas etapas à tabela de progresso do projeto:
 | :hourglass_flowing_sand: | Testes de Integração                        | Futuro    |
 | :hourglass_flowing_sand: | Melhorias na segurança                      | Futuro    |
 | :hourglass_flowing_sand: | Implementação de novas funcionalidades      | Futuro    |
-| :hourglass_flowing_sand: | Escalabilidade e Performance                | Futuro    |
 
 Legenda dos Emojis:
 
