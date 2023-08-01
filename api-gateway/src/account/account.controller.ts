@@ -1,11 +1,11 @@
-import { Controller, Post, Req, Res, Body } from '@nestjs/common';
+import { Controller, Get, Req, Res } from '@nestjs/common';
 import {
   ApiOkResponse,
   ApiUnauthorizedResponse,
   ApiTags,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { GetBalanceRequest, GetBalanceResponse } from './dto/get-balance.dto';
+import { GetBalanceResponse } from './dto/get-balance.dto';
 import { AccountServiceImpl } from './account.service';
 import { AuthenticationService } from 'src/auth/authentication.service';
 import { Request, Response } from 'express';
@@ -26,7 +26,7 @@ export class AccountController {
   @ApiUnauthorizedResponse({
     description: 'Unauthorized',
   })
-  @Post('/balance')
+  @Get('/balance')
   async savePurchaseOnStatement(@Req() req: Request, @Res() resp: Response) {
     const user = await this.authService.validateToken(req);
     if (user) {

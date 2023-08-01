@@ -90,12 +90,37 @@ describe('SavePurchaseOnStatementUsecase', () => {
     );
   });
 
-  it('should add balance when trasnfer status = CANCELED', async () => {
-    await sut.execute({ ...mockPurchase, status: PurchaseStatus.CANCELED }, 1);
+  it('should add balance when trasnfer status = CANCELED and type = PURCHASE', async () => {
+    await sut.execute(
+      {
+        ...mockPurchase,
+        status: PurchaseStatus.CANCELED,
+        type: PurchaseType.PURCHASE,
+      },
+      1,
+    );
 
     expect(setBalanceProducer.setBalance).toBeCalledWith(
       expect.objectContaining({
         action: SetBalanceAction.ADD,
+        amount: mockPurchase.amount,
+      }),
+    );
+  });
+
+  it('should subtract balance when trasnfer status = CANCELED and type = REFUND', async () => {
+    await sut.execute(
+      {
+        ...mockPurchase,
+        status: PurchaseStatus.CANCELED,
+        type: PurchaseType.REFUND,
+      },
+      1,
+    );
+
+    expect(setBalanceProducer.setBalance).toBeCalledWith(
+      expect.objectContaining({
+        action: SetBalanceAction.SUBTRACT,
         amount: mockPurchase.amount,
       }),
     );

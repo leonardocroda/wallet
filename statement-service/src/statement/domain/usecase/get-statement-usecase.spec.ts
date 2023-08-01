@@ -30,7 +30,7 @@ describe('GetStatementUsecase', () => {
 
     const result = await usecase.execute({ accountId: 1 });
 
-    expect(result).toEqual([]);
+    expect(result).toEqual({ transactions: [] });
     expect(
       findAllTransactionsRepository.findAllTransactions,
     ).toHaveBeenCalledTimes(1);
@@ -49,7 +49,7 @@ describe('GetStatementUsecase', () => {
         status: TransactionStatus.PROCESSED,
         type: TransactionType.TRANSFER_IN,
         id: 'transactionId',
-        transferId: 'transferId',
+        externalId: 'transferId',
       }),
       new Transaction({
         accountId: 12345,
@@ -59,7 +59,7 @@ describe('GetStatementUsecase', () => {
         status: TransactionStatus.PROCESSED,
         type: TransactionType.PURCHASE,
         id: 'transactionId',
-        purchaseId: 'purchaseId',
+        externalId: 'purchaseId',
       }),
     ];
 
@@ -69,7 +69,7 @@ describe('GetStatementUsecase', () => {
 
     const result = await usecase.execute({ accountId: 1 });
 
-    expect(result).toEqual(transactions);
+    expect(result).toEqual({ transactions });
     expect(
       findAllTransactionsRepository.findAllTransactions,
     ).toHaveBeenCalledTimes(1);
