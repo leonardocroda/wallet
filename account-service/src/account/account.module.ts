@@ -12,6 +12,7 @@ import { config } from 'dotenv';
 import { GetBalanceUsecase } from './domain/usecase/get-balance-usecase';
 import { GetBalanceRepository } from './domain/gateway/get-balance-repository';
 import { GetBalanceController } from './application/controllers/get-balance.controller';
+import { rabbitMQConstants } from 'src/config/constants';
 
 config();
 
@@ -23,11 +24,7 @@ config();
         name: 'SET_BALANCE',
         transport: Transport.RMQ,
         options: {
-          urls: [
-            `amqp://guest:guest@${
-              process.env.NODE_ENV === 'LOCAL' ? 'localhost' : 'rabbitmq'
-            }:5672`,
-          ],
+          urls: [rabbitMQConstants.url],
           queue: 'SET_BALANCE',
           prefetchCount: 1,
           queueOptions: {

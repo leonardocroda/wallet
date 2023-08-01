@@ -16,6 +16,7 @@ import { GetStatementUsecase } from './domain/usecase/get-statement-usecase';
 import { FindAllTransactionsRepository } from './domain/gateways/repositories/find-all-transactions-repository';
 import { GetStatementController } from './application/controllers/get-statement.controller';
 import { config } from 'dotenv';
+import { rabbitMQConstants } from 'src/config/constants';
 
 config();
 
@@ -37,11 +38,7 @@ config();
         const clientProxy = ClientProxyFactory.create({
           transport: Transport.RMQ,
           options: {
-            urls: [
-              `amqp://guest:guest@${
-                process.env.NODE_ENV === 'LOCAL' ? 'localhost' : 'rabbitmq'
-              }:5672`,
-            ],
+            urls: [rabbitMQConstants.url],
             queue: 'SET_BALANCE',
             prefetchCount: 1,
             queueOptions: {

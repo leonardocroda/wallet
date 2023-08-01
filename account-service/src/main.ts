@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { config } from 'dotenv';
 import { join } from 'path';
+import { rabbitMQConstants } from './config/constants';
 
 config();
 
@@ -12,11 +13,7 @@ async function bootstrap() {
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.RMQ,
     options: {
-      urls: [
-        `amqp://guest:guest@${
-          process.env.NODE_ENV === 'LOCAL' ? 'localhost' : 'rabbitmq'
-        }:5672`,
-      ],
+      urls: [rabbitMQConstants.url],
       queue: 'SET_BALANCE',
       prefetchCount: 1,
       queueOptions: {
