@@ -17,6 +17,7 @@ import { FindAllTransactionsRepository } from './domain/gateways/repositories/fi
 import { GetStatementController } from './application/controllers/get-statement.controller';
 import { config } from 'dotenv';
 import { rabbitMQConstants } from 'src/config/constants';
+import { FindOneTransactionRepository } from './domain/gateways/repositories/find-one-transaction-repository';
 
 config();
 
@@ -55,13 +56,19 @@ config();
       useFactory: (
         repository: UpsertTransactionRepository,
         setBalanceProducer: SetBalanceProducer,
+        findOneTransactionRepository: FindOneTransactionRepository,
       ) => {
         return new SaveTransferOnStatementUseCase(
           repository,
           setBalanceProducer,
+          findOneTransactionRepository,
         );
       },
-      inject: [TransactionTypeOrmRepository, SetBalanceProducerImpl],
+      inject: [
+        TransactionTypeOrmRepository,
+        SetBalanceProducerImpl,
+        TransactionTypeOrmRepository,
+      ],
     },
 
     {
@@ -69,13 +76,19 @@ config();
       useFactory: (
         repository: UpsertTransactionRepository,
         setBalanceProducer: SetBalanceProducer,
+        findOneTransactionRepository: FindOneTransactionRepository,
       ) => {
         return new SavePurchaseOnStatementUsecase(
           repository,
           setBalanceProducer,
+          findOneTransactionRepository,
         );
       },
-      inject: [TransactionTypeOrmRepository, SetBalanceProducerImpl],
+      inject: [
+        TransactionTypeOrmRepository,
+        SetBalanceProducerImpl,
+        TransactionTypeOrmRepository,
+      ],
     },
 
     {
