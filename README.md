@@ -1,6 +1,6 @@
-## Wallet Digital API
+## Wallet API
 
-Este é o projeto da API do aplicativo Wallet Digital, que consiste em um conjunto de microsserviços desenvolvidos em Node.js e NestJS para gerenciar uma carteira digital com extrato. Os microsserviços incluem o `statement-service`, `account-service`, `auth-service` e o `api-gateway`, cada um com sua função específica no sistema.
+Este é o projeto da API da aplicação Wallet, que consiste em um conjunto de microsserviços desenvolvidos em NestJS para gerenciar uma carteira digital com extrato. Os microsserviços incluem o `statement-service`, `account-service`, `auth-service` e o `api-gateway`, cada um com sua função específica no sistema.
 
 ## Progresso do Projeto
 
@@ -56,14 +56,47 @@ A comunicação entre a maioria dos microsserviços é síncrona, usando gRPC. N
 
 ![Modelo do banco de dados](/assets/database-model.png)
 
-## Pré-requisitos
+## Organização do Projeto
 
-- Docker e Docker Compose instalados em sua máquina.
+O projeto Wallet API segue uma estrutura organizada, com base na separação de responsabilidades e na arquitetura de microsserviços. Cada microsserviço contém uma estrutura semelhante, com divisão em módulos, e cada um desses módulos é dividido em camadas para facilitar a manutenção, escalabilidade, testabilidade e entendimento do código. Cada camada tem uma responsabilidade específica:
+
+### 1. Application Layer:
+
+A camada de Application é responsável por lidar com as interfaces de comunicação externa e receber/responder a requisições HTTP ou outras formas de comunicação com os clientes, como gRPC e AMQP.
+
+- **Controllers:** Cada microsserviço possui controllers que atuam como pontos de entrada para as requisições HTTP. Eles são responsáveis por receber os dados enviados pelos clientes, invocar os casos de uso adequados e enviar as respostas de volta aos clientes.
+
+- **Data Transfer Objects (DTOs):** Os DTOs são estruturas de dados que representam a forma como os dados são transferidos entre a camada de Application e as outras camadas. Eles ajudam a garantir uma comunicação clara e consistente entre as diferentes partes do sistema.
+
+### 2. Domain Layer:
+
+A camada de Domain contém a lógica de negócio central do microsserviço, incluindo entidades e casos de uso específicos.
+
+- **Entidades:** As entidades representam os conceitos fundamentais do domínio e contêm os dados e comportamentos essenciais do microsserviço. Elas encapsulam a lógica do negócio.
+
+- **Casos de Uso (Use Cases):** Os casos de uso contêm a lógica de negócio específica para cada funcionalidade do microsserviço. Eles manipulam as entidades e implementam as regras de negócio necessárias para realizar operações específicas.
+
+- **Interfaces de Gateway:** As interfaces de gateway definem contratos para a interação entre a camada de Domain e a camada de Infrastructure. Elas permitem a separação entre as implementações concretas das operações de infraestrutura.
+
+### 3. Infrastructure Layer:
+
+A camada de Infrastructure contém os detalhes de implementação específicos da infraestrutura, como acesso ao banco de dados, integrações com serviços externos e outras operações que não pertencem diretamente à lógica de negócio.
+
+- **Implementação dos Gateways:** Nesta camada, são implementadas as interfaces de gateway definidas na camada de Domain. As implementações concretas conectam as operações da aplicação aos serviços e recursos externos.
+
+- **Comunicação com Banco de Dados:** Aqui estão localizados os códigos relacionados à conexão e interação com o banco de dados, permitindo o armazenamento e a recuperação dos dados do microsserviço.
+
+- **Integrações Externas:** Caso o microsserviço precise interagir com outros serviços externos ou sistemas, essa camada é o local onde essas integrações são implementadas.
+
+### Injeção de dependências
+
+Cada módulo possui um arquivo {nome-do-modulo}.module.ts, é nesse arquivo que são injetadas as implementações dos gateways da camada de domínio, nele também são configuradas as conexões (a depender da necessidade do módulo, com o banco de dados, RabbitMQ e gRPC).
 
 ## Executando o Projeto
 
-1. Clone o repositório: `git clone https://github.com/leonardocroda/wallet.git`
-2. Para executar o projeto e os microsserviços, basta usar o comando:
+1. Você precisa possuir o Docker e o docker-compose instalados em sua máquina
+2. Clone o repositório: `git clone https://github.com/leonardocroda/wallet.git`
+3. Para executar o projeto e os microsserviços, basta usar o comando:
 
 ```
 docker-compose up -d
