@@ -8,6 +8,7 @@ import {
   ApiTags,
   ApiCreatedResponse,
   ApiBearerAuth,
+  ApiConflictResponse,
 } from '@nestjs/swagger';
 import { Purchase, Transaction, Transfer } from './dto/statement.dto';
 
@@ -42,6 +43,7 @@ export class StatementController {
   @ApiCreatedResponse({
     description: 'Created',
   })
+  @ApiConflictResponse({ description: 'Purchase already exists' })
   @ApiUnauthorizedResponse({
     description: 'Unauthorized',
   })
@@ -54,8 +56,12 @@ export class StatementController {
     const user = await this.authService.validateToken(req);
 
     if (user && user?.accountId === purchase.accountId) {
-      await this.statementService.savePurchaseOnStatement(purchase);
-      return resp.status(201).send();
+      const response = await this.statementService.savePurchaseOnStatement(
+        purchase,
+      );
+      const status = response?.status;
+
+      return resp.status(status).send();
     }
 
     return resp.status(401).send();
@@ -65,6 +71,7 @@ export class StatementController {
   @ApiCreatedResponse({
     description: 'Created',
   })
+  @ApiConflictResponse({ description: 'Transfer already exists' })
   @ApiUnauthorizedResponse({
     description: 'Unauthorized',
   })
@@ -77,8 +84,11 @@ export class StatementController {
     const user = await this.authService.validateToken(req);
 
     if (user && user?.accountId === transfer.accountId) {
-      await this.statementService.saveTransferOnStatement(transfer);
-      return resp.status(201).send();
+      const response = await this.statementService.saveTransferOnStatement(
+        transfer,
+      );
+      const status = response?.status;
+      return resp.status(status).send();
     }
 
     return resp.status(401).send();

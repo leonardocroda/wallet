@@ -52,8 +52,8 @@ describe('SaveTransferOnStatementUsecase', () => {
     );
   });
   it('should call upsertStatementTransaction with the correct transaction', async () => {
-    await sut.execute(mockTransfer, 1);
-
+    const { status } = await sut.execute(mockTransfer, 1);
+    expect(status).toBe(201);
     expect(upsertTransactionRepository.upsertTransaction).toBeCalled();
   });
 
@@ -148,9 +148,10 @@ describe('SaveTransferOnStatementUsecase', () => {
         });
       });
 
-    await sut.execute(mockTransfer, 1);
+    const { status } = await sut.execute(mockTransfer, 1);
 
     expect(upsertTransactionRepository.upsertTransaction).not.toBeCalled();
     expect(setBalanceProducer.setBalance).not.toBeCalled();
+    expect(status).toBe(409);
   });
 });

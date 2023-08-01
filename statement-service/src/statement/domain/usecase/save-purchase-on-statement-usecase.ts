@@ -21,7 +21,10 @@ export class SavePurchaseOnStatementUsecase {
     private readonly setBalanceProducer: SetBalanceProducer,
     private readonly findOneTransactionRepository: FindOneTransactionRepository,
   ) {}
-  async execute(purchase: Purchase, accountId: number) {
+  async execute(
+    purchase: Purchase,
+    accountId: number,
+  ): Promise<{ status: number }> {
     const transaction = this.mapPurchaseToTransaction(purchase);
 
     const existentTransaction = await this.findOneTransactionRepository.findOne(
@@ -29,7 +32,7 @@ export class SavePurchaseOnStatementUsecase {
     );
 
     if (existentTransaction) {
-      return;
+      return { status: 409 };
     }
 
     await this.upsertTransaction.upsertTransaction(transaction);
@@ -39,6 +42,8 @@ export class SavePurchaseOnStatementUsecase {
       action: this.getSetBalanceAction(purchase),
       accountId,
     });
+
+    return { status: 201 };
   }
 
   private mapPurchaseToTransaction(purchase: Purchase): Transaction {

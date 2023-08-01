@@ -1,7 +1,7 @@
 export interface StatementService {
   GetAll(getAllDto: GetAllDto): Promise<Transaction[]>;
-  SavePurchaseOnStatement(purchase: Purchase): Promise<void>;
-  SaveTransferOnStatement(transfer: Transfer): Promise<void>;
+  SavePurchaseOnStatement(purchase: Purchase): Promise<{ status: number }>;
+  SaveTransferOnStatement(transfer: Transfer): Promise<{ status: number }>;
 }
 
 export interface GetAllDto {

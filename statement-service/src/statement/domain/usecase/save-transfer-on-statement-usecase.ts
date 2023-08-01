@@ -21,7 +21,10 @@ export class SaveTransferOnStatementUseCase {
     private readonly setBalanceProducer: SetBalanceProducer,
     private readonly findOneTransactionRepository: FindOneTransactionRepository,
   ) {}
-  async execute(transfer: TransferEntity, accountId: number) {
+  async execute(
+    transfer: TransferEntity,
+    accountId: number,
+  ): Promise<{ status: number }> {
     const transaction = this.mapTransferToTransaction(transfer);
 
     const existentTransaction = await this.findOneTransactionRepository.findOne(
@@ -29,7 +32,7 @@ export class SaveTransferOnStatementUseCase {
     );
 
     if (existentTransaction) {
-      return;
+      return { status: 409 };
     }
 
     await this.upsertTransaction.upsertTransaction(transaction);
@@ -39,6 +42,8 @@ export class SaveTransferOnStatementUseCase {
       action: this.getSetBalanceAction(transfer),
       accountId,
     });
+
+    return { status: 201 };
   }
 
   private mapTransferToTransaction(transfer: TransferEntity): Transaction {

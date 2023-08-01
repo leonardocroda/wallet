@@ -55,9 +55,10 @@ describe('SavePurchaseOnStatementUsecase', () => {
     );
   });
   it('should call upsertStatementTransaction with the correct transaction', async () => {
-    await sut.execute(mockPurchase, 1);
+    const { status } = await sut.execute(mockPurchase, 1);
 
     expect(upsertTransactionRepository.upsertTransaction).toBeCalled();
+    expect(status).toBe(201);
   });
 
   it('should maPurchaseToStatementTransaction correctly', () => {
@@ -151,9 +152,10 @@ describe('SavePurchaseOnStatementUsecase', () => {
         });
       });
 
-    await sut.execute(mockPurchase, 1);
+    const { status } = await sut.execute(mockPurchase, 1);
 
     expect(upsertTransactionRepository.upsertTransaction).not.toBeCalled();
     expect(setBalanceProducer.setBalance).not.toBeCalled();
+    expect(status).toBe(409);
   });
 });

@@ -32,7 +32,7 @@ export class TransactionsService implements OnModuleInit {
   async savePurchaseOnStatement(purchase: Purchase) {
     const observable = this.statementService.SavePurchaseOnStatement(
       purchase,
-    ) as unknown as Observable<void>;
+    ) as unknown as Observable<{ status: number }>;
 
     return observable.toPromise();
   }
@@ -40,7 +40,7 @@ export class TransactionsService implements OnModuleInit {
   async saveTransferOnStatement(transfer: Transfer) {
     const observable = this.statementService.SaveTransferOnStatement(
       transfer,
-    ) as unknown as Observable<void>;
+    ) as unknown as Observable<{ status: number }>;
 
     return observable.toPromise();
   }

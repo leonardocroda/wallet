@@ -11,7 +11,7 @@ export class CreateTransactionTable1690661499206 implements MigrationInterface {
             type VARCHAR(255),
             sourceDestinationName VARCHAR(255),
             status VARCHAR(255),
-            date VARCHAR(255),
+            date DATETIME,
             CONSTRAINT FK_account_id FOREIGN KEY (account_id) REFERENCES account(id)
           );
         `);

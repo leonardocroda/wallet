@@ -4,8 +4,8 @@ package statement;
 
 service StatementService {
   rpc GetAll (GetAllDto) returns (TransactionsList) {}
-  rpc SavePurchaseOnStatement (Purchase) returns (Empty) {}
-  rpc SaveTransferOnStatement (Transfer) returns (Empty) {}
+  rpc SavePurchaseOnStatement (Purchase) returns (Status) {}
+  rpc SaveTransferOnStatement (Transfer) returns (Status) {}
 }
 
 message Transaction {
@@ -48,4 +48,6 @@ message Transfer {
   double amount=7;
 }
 
-message Empty {}
+message Status {
+  int32 status=1;
+}
