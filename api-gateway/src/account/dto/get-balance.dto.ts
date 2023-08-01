@@ -6,6 +6,6 @@ export class GetBalanceResponse {
 }
 
 export class GetBalanceRequest {
-  @ApiProperty()
+  @ApiProperty({ default: 1 })
   accountId: number;
 }

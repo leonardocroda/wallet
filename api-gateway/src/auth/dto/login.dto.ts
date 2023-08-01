@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class LoginRequest {
-  @ApiProperty({ default: 'test@example.com' })
+  @ApiProperty({ default: 'teste@example.com' })
   email: string;
 
   @ApiProperty({ default: 'senha123' })

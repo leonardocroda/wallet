@@ -27,50 +27,50 @@ export class Transaction {
 }
 
 export class Purchase {
-  @ApiProperty()
+  @ApiProperty({ default: '2452da57-1406-40c8-a770-e7734f377f16' })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 1 })
   accountId: number;
 
-  @ApiProperty()
+  @ApiProperty({ default: '00.000.000/0001-10' })
   cnpj: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 'Loja Teste' })
   merchantName: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 10 })
   amount: number;
 
-  @ApiProperty()
+  @ApiProperty({ default: '2023-06-20T09:30:00.000Z' })
   date: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 'PURCHASE' })
   type: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 'PROCESSED' })
   status: string;
 }
 
 export class Transfer {
-  @ApiProperty()
+  @ApiProperty({ default: 'c96ae905-25f5-4468-a882-0c1d008e1730' })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 1 })
   accountId: number;
 
-  @ApiProperty()
+  @ApiProperty({ default: 'TRANSFER_IN' })
   type: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 'PROCESSED' })
   status: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 'Pessoa Teste' })
   sourceDestinationName: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: '2023-04-20T09:30:00.000Z' })
   date: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 10 })
   amount: number;
 }
