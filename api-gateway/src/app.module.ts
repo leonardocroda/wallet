@@ -17,9 +17,9 @@ import { AccountModule } from './account/account.module';
         },
       },
     ]),
-    StatementModule,
     AuthModule,
     AccountModule,
+    StatementModule,
   ],
 })
 export class AppModule {}
