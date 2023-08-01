@@ -126,7 +126,7 @@ A API estará disponível em `http://localhost:3000` através do API Gateway. Ab
 
 5. **Transferência:**
 
-   - `POST /statement/transfer`: Adiciona uma compra ao extrato.
+   - `POST /statement/transfer`: Adiciona uma transferÊncia ao extrato.
 
 ## Testes
 
