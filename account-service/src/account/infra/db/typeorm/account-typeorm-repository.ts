@@ -2,8 +2,11 @@ import { Repository } from 'typeorm';
 import { Account } from '../../../domain/entity/account';
 import { SetBalanceRepository } from '../../../domain/gateway/set-balance-repository';
 import { SetBalanceAction } from '../../../domain/usecase/set-balance-usecase';
+import { GetBalanceRepository } from 'src/account/domain/gateway/get-balance-repository';
 
-export class AccountTypeormRepository implements SetBalanceRepository {
+export class AccountTypeormRepository
+  implements SetBalanceRepository, GetBalanceRepository
+{
   constructor(private repository: Repository<Account>) {}
 
   async setBalance({
@@ -23,5 +26,16 @@ export class AccountTypeormRepository implements SetBalanceRepository {
       .set({ balance: () => `balance ${operation} ${amount}` })
       .where('id = :accountId', { accountId })
       .execute();
+  }
+
+  async getBalance({
+    accountId,
+  }: {
+    accountId: number;
+  }): Promise<{ balance: number }> {
+    return this.repository.findOne({
+      where: { id: accountId },
+      // select: { balance: true, id: false, number: false },
+    });
   }
 }

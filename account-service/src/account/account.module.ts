@@ -9,6 +9,9 @@ import { SetBalanceController } from './application/controllers/set-balance.cont
 import { SetBalanceUsecase } from './domain/usecase/set-balance-usecase';
 import { SetBalanceRepository } from './domain/gateway/set-balance-repository';
 import { config } from 'dotenv';
+import { GetBalanceUsecase } from './domain/usecase/get-balance-usecase';
+import { GetBalanceRepository } from './domain/gateway/get-balance-repository';
+import { GetBalanceController } from './application/controllers/get-balance.controller';
 
 config();
 
@@ -49,7 +52,15 @@ config();
       },
       inject: [AccountTypeormRepository],
     },
+
+    {
+      provide: GetBalanceUsecase,
+      useFactory: (repository: GetBalanceRepository) => {
+        return new GetBalanceUsecase(repository);
+      },
+      inject: [AccountTypeormRepository],
+    },
   ],
-  controllers: [SetBalanceController],
+  controllers: [SetBalanceController, GetBalanceController],
 })
 export class AccountModule {}

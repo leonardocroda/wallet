@@ -44,15 +44,17 @@ export class SaveTransferOnStatementUseCase {
   }
 
   private getSetBalanceAction(transfer: TransferEntity) {
-    if (transfer.status === TransferStatus.CANCELED) {
-      return SetBalanceAction.ADD;
-    }
-
     if (transfer.type === TransferType.TRANSFER_IN) {
+      if (transfer.status === TransferStatus.CANCELED) {
+        return SetBalanceAction.SUBTRACT;
+      }
       return SetBalanceAction.ADD;
     }
 
     if (transfer.type === TransferType.TRANSFER_OUT) {
+      if (transfer.status === TransferStatus.CANCELED) {
+        return SetBalanceAction.ADD;
+      }
       return SetBalanceAction.SUBTRACT;
     }
   }

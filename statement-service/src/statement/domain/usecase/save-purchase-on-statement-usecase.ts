@@ -44,15 +44,17 @@ export class SavePurchaseOnStatementUsecase {
   }
 
   private getSetBalanceAction(purchase: Purchase) {
-    if (purchase.status === PurchaseStatus.CANCELED) {
-      return SetBalanceAction.ADD;
-    }
-
     if (purchase.type === PurchaseType.PURCHASE) {
+      if (purchase.status === PurchaseStatus.CANCELED) {
+        return SetBalanceAction.ADD;
+      }
       return SetBalanceAction.SUBTRACT;
     }
 
     if (purchase.type === PurchaseType.REFUND) {
+      if (purchase.status === PurchaseStatus.CANCELED) {
+        return SetBalanceAction.SUBTRACT;
+      }
       return SetBalanceAction.ADD;
     }
   }

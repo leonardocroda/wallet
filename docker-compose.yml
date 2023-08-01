@@ -11,7 +11,7 @@ services:
       MYSQL_USER: user_teste
       MYSQL_PASSWORD: senha_teste
     ports:
-      - "3306:3306"
+      - 3306:3306
     volumes:
       - mysql_data:/var/lib/mysql
 
@@ -23,8 +23,8 @@ services:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - 5672:5672
+      - 15672:15672
 
   api-gateway:
     container_name: api-gateway

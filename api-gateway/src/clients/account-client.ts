@@ -1,16 +1,17 @@
 import { ClientOptions, Transport } from '@nestjs/microservices';
 import { join } from 'path';
 import { config } from 'dotenv';
+
 config();
 
-export const userClient: ClientOptions = {
+export const accountClient: ClientOptions = {
   transport: Transport.GRPC,
   options: {
-    package: 'auth',
-    protoPath: join(__dirname, '../proto/auth.proto'),
+    package: 'account',
+    protoPath: join(__dirname, '../proto/account.proto'),
     loader: { keepCase: true },
     url: `${
-      process.env.NODE_ENV === 'LOCAL' ? '0.0.0.0' : 'auth-service'
-    }:50051`,
+      process.env.NODE_ENV === 'LOCAL' ? '0.0.0.0' : 'account-service'
+    }:50053`,
   },
 };

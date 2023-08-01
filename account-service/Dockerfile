@@ -1,7 +1,7 @@
 # Base image
 FROM node:18-alpine
 
-EXPOSE 3000 5672 50051 50052
+EXPOSE 5672 50053
 
 WORKDIR /usr/src/app
 
