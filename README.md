@@ -6,28 +6,27 @@ Claro! Vamos adicionar as novas etapas à tabela de progresso do projeto:
 
 ## Progresso do Projeto
 
-| Etapa              | Descrição                                   | Status    |
-| ------------------ | ------------------------------------------- | --------- |
-| :white_check_mark: | Modelagem do Banco de Dados                 | Concluído |
-| :white_check_mark: | Definição do Escopo de cada Microsserviço   | Concluído |
-| :white_check_mark: | Definição da Arquitetura dos Microsserviços | Concluído |
-| :white_check_mark: | Criação dos microsserviços                  | Concluído |
-| :white_check_mark: | Autenticação com JWT                        | Concluído |
-| :white_check_mark: | Configuração do RabbitMQ                    | Concluído |
-| :white_check_mark: | Atualização assíncrona do saldo             | Concluído |
-| :white_check_mark: | Comunicação síncrona com gRPC               | Concluído |
-| :white_check_mark: | Dockerização dos microsserviços             | Concluído |
-| :white_check_mark: | Documentação da API                         | Concluído |
-| :x:                | Testes de Integração                        | Futuro    |
-| :x:                | Melhorias na segurança                      | Futuro    |
-| :x:                | Implementação de novas funcionalidades      | Futuro    |
-| :x:                | Escalabilidade e Performance                | Futuro    |
+| Etapa                    | Descrição                                   | Status    |
+| ------------------------ | ------------------------------------------- | --------- |
+| :white_check_mark:       | Modelagem do Banco de Dados                 | Concluído |
+| :white_check_mark:       | Definição do Escopo de cada Microsserviço   | Concluído |
+| :white_check_mark:       | Definição da Arquitetura dos Microsserviços | Concluído |
+| :white_check_mark:       | Criação dos microsserviços                  | Concluído |
+| :white_check_mark:       | Autenticação com JWT                        | Concluído |
+| :white_check_mark:       | Configuração do RabbitMQ                    | Concluído |
+| :white_check_mark:       | Atualização assíncrona do saldo             | Concluído |
+| :white_check_mark:       | Comunicação síncrona com gRPC               | Concluído |
+| :white_check_mark:       | Dockerização dos microsserviços             | Concluído |
+| :white_check_mark:       | Documentação da API                         | Concluído |
+| :hourglass_flowing_sand: | Testes de Integração                        | Futuro    |
+| :hourglass_flowing_sand: | Melhorias na segurança                      | Futuro    |
+| :hourglass_flowing_sand: | Implementação de novas funcionalidades      | Futuro    |
+| :hourglass_flowing_sand: | Escalabilidade e Performance                | Futuro    |
 
 Legenda dos Emojis:
 
 - :white_check_mark: : Etapa Concluída
-- :hourglass_flowing_sand: : Etapa Em Progresso
-- :x: : Etapa Futura
+- :hourglass_flowing_sand: : Etapa Futura
 
 ## Arquitetura da Solução
 
