@@ -33,7 +33,7 @@ Legenda dos Emojis:
 
 A arquitetura do projeto é baseada em microsserviços, com a seguinte estrutura:
 
-![Desenho da arquitetura](https://lh3.googleusercontent.com/pw/AIL4fc9t-MtgdIy2UoRgFvqBB-qYThxoWgwUOanuAqe-dVQqOysjEEaaAB3f82Pa1dXDNtnB7KwrrkluziymKx--FbXAyzaX4z2d6kpcQx33nDUpQV6qNk0TM3FyGNxysKDJc9WFRl9S2oRKBw2bGsurSVfPGjau9gk4GOgIA8cGs7sJLdPaAMSo_1H_aL0Pbc_l2ewZNxd_sUGmvXsaCfTJgMozkR2gHc5guJbwjE3xEuUjq1cvd5Pki5zW1Gsl3PXQEoyRWcxTgPAitnlb9D2-D4g9T9gNYETvZu9Y6abEsOgDhHlhaUUcd-Nf1ZQsZ7j0LsIcD_2bCL1nnPf9sJEZ6nHsqlFVjFgbHMy8-0MWIxm50ZIcQN9wZImUfQQUhlXOYkswoJ6VBe-SJeH4uC978j6pdek8P5VxQBxKlVmUAQ_AL5Fzt4X_umNmsa5hQ5znWffJBE4QW77q18HldjcexVd-IYec3hYh1j0VVz0H46qCWlTRkwEvRGCtcbpiMKz54XN3jt9AweXnXvEBOpyBNoAmWcVCoyOcokuVN76aGKIdzQsVHx0mN--IG7Z2703ZHXWHYZ9ZYLhC7OotKbtrQ-SY0PylE51ZtVrvMPc5DTX6RTc-QqL3KDIQKDYVOhVnVTSkPml0NRKN3KSmYbVOG6SiFlEqQJqu4IawOaxWgR2ooZTpzkjx5EapOI4TDV4bAx7vURrN-Kk_VqClZhwqWF6vbLT5ZCF9-zFTb5ie4Skia1ceI3urZad_tT7Jfb_KHMjudTVCIwGCe8D-PxQGtPpZEXDM6K4IU0kWw2cOpSGUpJ3XdqOQNbKiN0PclyQIYY_1Q1jnXi_vBLcXgKhaRmf-u1rUb1fCacehjZg9egYGQuA4a_Zud19HJFMsqWvHJv3BvdmrRNalIbldXzDPNZl71TQ=w1325-h924-s-no?authuser=0)
+![Desenho da arquitetura](/assets/architecture.jpg)
 
 1. **Statement Service:**
 
@@ -55,6 +55,10 @@ A arquitetura do projeto é baseada em microsserviços, com a seguinte estrutura
    - Encaminha as chamadas para o serviço correspondente.
 
 A comunicação entre a maioria dos microsserviços é síncrona, usando gRPC. No entanto, a atualização do saldo ocorre de forma assíncrona após o registro de uma transação no extrato. Essa atualização é realizada através de uma fila do RabbitMQ.
+
+## Modelo do banco de dados
+
+![Modelo do banco de dados](/assets/database-model.png)
 
 ## Pré-requisitos
 
