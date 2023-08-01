@@ -101,13 +101,22 @@ A API estará disponível em `http://localhost:3000` através do API Gateway. Ab
 
 ## Testes
 
-Para executar os testes unitários de todos os microsserviços, utilize o seguinte comando:
+Para executar os testes unitários pela primeira vez de todos os microsserviços, utilize os seguintes comandos:
 
 ```
-docker-compose -f docker-compose.dev.yml run --rm statement-service npm run test
-docker-compose f docker-compose.dev.yml run --rm account-service npm run test
-docker-compose f docker-compose.dev.yml run --rm auth-service npm run test
-docker-compose f docker-compose.dev.yml run --rm api-gateway npm run test
+sudo chmod +x install-dependencies.sh
+```
+
+```
+sudo chmod +x test.sh
+```
+
+```
+./install-dependencies.sh
+```
+
+```
+./test.sh
 ```
 
 ## Contribuição
