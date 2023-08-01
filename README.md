@@ -60,10 +60,6 @@ A comunicação entre a maioria dos microsserviços é síncrona, usando gRPC. N
 
 - Docker e Docker Compose instalados em sua máquina.
 
-## Instalação
-
-2. Acesse o diretório do projeto: `cd wallet`
-
 ## Executando o Projeto
 
 1. Clone o repositório: `git clone https://github.com/leonardocroda/wallet.git`
