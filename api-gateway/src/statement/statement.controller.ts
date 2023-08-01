@@ -11,8 +11,8 @@ import {
 } from '@nestjs/swagger';
 import { Purchase, Transaction, Transfer } from './dto/statement.dto';
 
-@ApiTags('Transactions')
-@Controller('transactions')
+@ApiTags('Statement')
+@Controller('statement')
 export class StatementController {
   constructor(
     private statementService: TransactionsService,
