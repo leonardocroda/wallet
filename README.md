@@ -2,8 +2,6 @@
 
 Este é o projeto da API do aplicativo Wallet Digital, que consiste em um conjunto de microsserviços desenvolvidos em Node.js e NestJS para gerenciar uma carteira digital com extrato. Os microsserviços incluem o `statement-service`, `account-service`, `auth-service` e o `api-gateway`, cada um com sua função específica no sistema.
 
-Claro! Vamos adicionar as novas etapas à tabela de progresso do projeto:
-
 ## Progresso do Projeto
 
 | Etapa                    | Descrição                                   | Status    |
