@@ -4,7 +4,7 @@
 ROOT_DIR=$(pwd)
 
 # Lista dos projetos
-PROJECTS=("statement-service" "account-service", "auth-service")
+PROJECTS=("statement-service" "account-service" "auth-service")
 
 # Função para instalar dependências em um projeto
 function install_dependencies {
