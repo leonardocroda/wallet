@@ -85,26 +85,26 @@ A API estará disponível em `http://localhost:3000` através do API Gateway. Ab
 
 3. **Extrato:**
 
-   - `GET /transactions`: Obtém os dados do extrato da carteira digital.
+   - `GET /statement`: Obtém os dados do extrato da carteira digital.
 
 4. **Compra:**
 
-   - `POST /transactions/purchase`: Adiciona uma compra ao extrato.
+   - `POST /statement/purchase`: Adiciona uma compra ao extrato.
 
 5. **Transferência:**
 
-   - `POST /transactions/transfer`: Adiciona uma compra ao extrato.
+   - `POST /statement/transfer`: Adiciona uma compra ao extrato.
 
 ## Testes
 
 Para executar os testes unitários pela primeira vez de todos os microsserviços, com o Nodejs instalado, utilize os seguintes comandos:
 
 ```
-sudo chmod +x install-dependencies.sh
+chmod +x install-dependencies.sh
 ```
 
 ```
-sudo chmod +x test.sh
+chmod +x test.sh
 ```
 
 ```
