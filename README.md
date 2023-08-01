@@ -101,7 +101,7 @@ A API estará disponível em `http://localhost:3000` através do API Gateway. Ab
 
 ## Testes
 
-Para executar os testes unitários pela primeira vez de todos os microsserviços, utilize os seguintes comandos:
+Para executar os testes unitários pela primeira vez de todos os microsserviços, com o Nodejs instalado, utilize os seguintes comandos:
 
 ```
 sudo chmod +x install-dependencies.sh
@@ -118,16 +118,6 @@ sudo chmod +x test.sh
 ```
 ./test.sh
 ```
-
-## Contribuição
-
-Se você deseja contribuir com o projeto, siga os passos abaixo:
-
-1. Faça um fork do repositório e clone-o em sua máquina local.
-2. Crie um branch para suas alterações: `git checkout -b minha-feature`.
-3. Faça as alterações desejadas e faça commit delas: `git commit -m 'Minha contribuição'`.
-4. Envie suas alterações para o repositório remoto: `git push origin minha-feature`.
-5. Crie um novo Pull Request explicando suas alterações e aguarde a revisão.
 
 ## Documentação
 
