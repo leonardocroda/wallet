@@ -13,14 +13,24 @@ import {
   SetBalanceProducer,
 } from '../gateways/producers/set-balance-producer';
 import { UpsertTransactionRepository } from '../gateways/repositories/upsert-transaction-repository';
+import { FindOneTransactionRepository } from '../gateways/repositories/find-one-transaction-repository';
 
 export class SavePurchaseOnStatementUsecase {
   constructor(
     private readonly upsertTransaction: UpsertTransactionRepository,
     private readonly setBalanceProducer: SetBalanceProducer,
+    private readonly findOneTransactionRepository: FindOneTransactionRepository,
   ) {}
   async execute(purchase: Purchase, accountId: number) {
     const transaction = this.mapPurchaseToTransaction(purchase);
+
+    const existentTransaction = this.findOneTransactionRepository.findOne(
+      transaction.id,
+    );
+
+    if (existentTransaction) {
+      return;
+    }
 
     await this.upsertTransaction.upsertTransaction(transaction);
 

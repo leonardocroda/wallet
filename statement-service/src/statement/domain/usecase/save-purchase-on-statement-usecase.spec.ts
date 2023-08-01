@@ -1,6 +1,7 @@
 import { UpsertTransactionRepository } from '../gateways/repositories/upsert-transaction-repository';
 
 import {
+  Transaction,
   TransactionStatus,
   TransactionType,
 } from '../entity/transaction.entity';
@@ -14,10 +15,12 @@ import {
   PurchaseStatus,
   PurchaseType,
 } from '../entity/purchase.entity';
+import { FindOneTransactionRepository } from '../gateways/repositories/find-one-transaction-repository';
 
 describe('SavePurchaseOnStatementUsecase', () => {
   let upsertTransactionRepository: UpsertTransactionRepository;
   let setBalanceProducer: SetBalanceProducer;
+  let findOneTransactionRepository: FindOneTransactionRepository;
 
   let sut: SavePurchaseOnStatementUsecase;
 
@@ -40,9 +43,15 @@ describe('SavePurchaseOnStatementUsecase', () => {
     setBalanceProducer = {
       setBalance: jest.fn(),
     };
+
+    findOneTransactionRepository = {
+      findOne: jest.fn(),
+    };
+
     sut = new SavePurchaseOnStatementUsecase(
       upsertTransactionRepository,
       setBalanceProducer,
+      findOneTransactionRepository,
     );
   });
   it('should call upsertStatementTransaction with the correct transaction', async () => {
@@ -124,5 +133,27 @@ describe('SavePurchaseOnStatementUsecase', () => {
         amount: mockPurchase.amount,
       }),
     );
+  });
+
+  it('should not save the transaction or change the balance if the transaction is duplicated', async () => {
+    jest
+      .spyOn(findOneTransactionRepository, 'findOne')
+      .mockImplementationOnce(async (_) => {
+        return new Transaction({
+          accountId: 12345,
+          amount: 100,
+          date: new Date('2023-07-29').toISOString(),
+          sourceDestinationName: 'John Doe',
+          status: TransactionStatus.PROCESSED,
+          type: TransactionType.PURCHASE,
+          id: 'transactionId',
+          externalId: 'purchaseId',
+        });
+      });
+
+    await sut.execute(mockPurchase, 1);
+
+    expect(upsertTransactionRepository.upsertTransaction).not.toBeCalled();
+    expect(setBalanceProducer.setBalance).not.toBeCalled();
   });
 });

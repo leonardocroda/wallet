@@ -12,15 +12,25 @@ import {
   SetBalanceAction,
   SetBalanceProducer,
 } from '../gateways/producers/set-balance-producer';
+import { FindOneTransactionRepository } from '../gateways/repositories/find-one-transaction-repository';
 import { UpsertTransactionRepository } from '../gateways/repositories/upsert-transaction-repository';
 
 export class SaveTransferOnStatementUseCase {
   constructor(
     private readonly upsertTransaction: UpsertTransactionRepository,
     private readonly setBalanceProducer: SetBalanceProducer,
+    private readonly findOneTransactionRepository: FindOneTransactionRepository,
   ) {}
   async execute(transfer: TransferEntity, accountId: number) {
     const transaction = this.mapTransferToTransaction(transfer);
+
+    const existentTransaction = this.findOneTransactionRepository.findOne(
+      transaction.id,
+    );
+
+    if (existentTransaction) {
+      return;
+    }
 
     await this.upsertTransaction.upsertTransaction(transaction);
 
